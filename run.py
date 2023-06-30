@@ -161,7 +161,35 @@ def search_records(records):
         view_records(found_records)
     else:
         print("No matching records found.")
-        
+
+def sort_records(records):
+    """
+    Sort records in the HRIS based on a sorting choice.
+
+    Args:
+        records (list): List of records.
+    """
+    if not records:
+        print("No records available to sort.")
+        return
+
+    sort_choice = input("Sort records by (name/age/department): ").lower()
+    if sort_choice == 'name':
+        # Sort records by name
+        records.sort(key=lambda x: x['name'])
+    elif sort_choice == 'age':
+        # Sort records by age
+        records.sort(key=lambda x: x['age'])
+    elif sort_choice == 'department':
+        # Sort records by department
+        records.sort(key=lambda x: x['department'])
+    else:
+        print("Invalid sorting choice!")
+        return
+
+    print("Records sorted successfully!")
+    view_records(records)
+
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
