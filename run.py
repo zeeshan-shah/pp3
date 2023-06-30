@@ -1,5 +1,6 @@
 # Import required libraries
 import json  # Library for JSON operations
+import re    # Library for regular expressions
 
 def load_records():
     """
