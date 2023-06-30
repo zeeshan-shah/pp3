@@ -152,3 +152,21 @@ def get_valid_date(prompt):
             return date
         else:
             print("Invalid date format! Please enter the date in DD-MM-YYYY format.")
+
+def get_valid_email(prompt):
+    """
+    Get a valid email address input from the user.
+
+    Args:
+        prompt (str): The input prompt message.
+
+    Returns:
+        str: The validated email address.
+    """
+    email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    while True:
+        email = input(prompt)
+        if re.match(email_pattern, email):
+            return email
+        else:
+            print("Invalid email address! Please enter a valid email address.")
