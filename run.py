@@ -55,3 +55,8 @@ def add_record(records):
         'salary': salary,
         'hire_date': hire_date
     }
+
+    # Append the record to the list of records and save to file
+    records.append(record)
+    save_records(records)
+    print("Record added successfully!")
