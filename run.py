@@ -134,3 +134,21 @@ def get_valid_input(prompt, data_type, condition):
                 print("Invalid input! Please enter a valid value.")
         except ValueError:
             print("Invalid input! Please enter a valid value.")
+
+def get_valid_date(prompt):
+    """
+    Get a valid date input from the user in the format DD-MM-YYYY.
+
+    Args:
+        prompt (str): The input prompt message.
+
+    Returns:
+        str: The validated date in the format DD-MM-YYYY.
+    """
+    date_pattern = r'^\d{2}-\d{2}-\d{4}$'
+    while True:
+        date = input(prompt)
+        if re.match(date_pattern, date):
+            return date
+        else:
+            print("Invalid date format! Please enter the date in DD-MM-YYYY format.")
