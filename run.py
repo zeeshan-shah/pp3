@@ -83,4 +83,13 @@ def view_records(records):
             print(f"Salary: {record['salary']}")
             print(f"Hire Date: {record['hire_date']}")
 
-            
+def update_record(records):
+    """
+    Update a record in the HRIS.
+
+    Args:
+        records (list): List of records.
+    """
+    if not records:
+        print("No records available to update.")
+        return           
