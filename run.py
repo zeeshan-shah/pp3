@@ -114,6 +114,18 @@ def update_record(records):
     record['salary'] = get_valid_input("Enter the updated employee's salary: ", float, lambda x: x >= 0)
     record['hire_date'] = get_valid_date("Enter the updated employee's hire date (DD-MM-YYYY): ")
 
+def delete_record(records):
+    """
+    Delete a record from the HRIS.
+
+    Args:
+        records (list): List of records.
+    """
+    if not records:
+        print("No records available to delete.")
+        return
+
+        
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
