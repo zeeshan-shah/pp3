@@ -60,3 +60,27 @@ def add_record(records):
     records.append(record)
     save_records(records)
     print("Record added successfully!")
+
+def view_records(records):
+    """
+    View all records in the HRIS.
+
+    Args:
+        records (list): List of records.
+    """
+    if not records:
+        print("No records found!")
+    else:
+        for idx, record in enumerate(records):
+            print(f"\nRecord {idx + 1}:")
+            print(f"Name: {record['name']}")
+            print(f"Date of Birth: {record['date_of_birth']}")
+            print(f"Age: {record['age']}")
+            print(f"Address: {record['address']}")
+            print(f"Email: {record['email']}")
+            print(f"Job Position: {record['job_position']}")
+            print(f"Department: {record['department']}")
+            print(f"Salary: {record['salary']}")
+            print(f"Hire Date: {record['hire_date']}")
+
+            
