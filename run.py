@@ -93,7 +93,24 @@ def update_record(records):
     if not records:
         print("No records available to update.")
         return 
-                  
+
     # Display the existing records
     view_records(records)
     record_idx = get_valid_input("\nEnter the record number to update: ", int, lambda x: 1 <= x <= len(records)) - 1
+
+    # Get the chosen record for updating
+    record = records[record_idx]
+    print(f"\nUpdating record {record_idx + 1}: {record['name']}")
+
+    # Get updated input for each field of the record
+    record['name'] = input("Enter the updated employee's name: ")
+    record['date_of_birth'] = get_valid_date("Enter the updated employee's date of birth (DD-MM-YYYY): ")
+    record['age'] = get_valid_input("Enter the updated employee's age (18 or above): ", int, lambda x: x >= 18)
+    record['address'] = input("Enter the updated employee's address: ")
+    record['email'] = get_valid_email("Enter the updated employee's email address: ")
+    record['job_position'] = input("Enter the updated employee's job position: ")
+    record['department'] = input("Enter the updated employee's department: ")
+    record['salary'] = get_valid_input("Enter the updated employee's salary: ", float, lambda x: x >= 0)
+    record['hire_date'] = get_valid_date("Enter the updated employee's hire date (DD-MM-YYYY): ")
+
+    
