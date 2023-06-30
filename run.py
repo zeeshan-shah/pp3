@@ -113,4 +113,24 @@ def update_record(records):
     record['salary'] = get_valid_input("Enter the updated employee's salary: ", float, lambda x: x >= 0)
     record['hire_date'] = get_valid_date("Enter the updated employee's hire date (DD-MM-YYYY): ")
 
-    
+def get_valid_input(prompt, data_type, condition):
+    """
+    Get valid user input based on data type and condition.
+
+    Args:
+        prompt (str): The input prompt message.
+        data_type (type): The expected data type of the input.
+        condition (callable): A condition function to validate the input.
+
+    Returns:
+        The validated user input.
+    """
+    while True:
+        try:
+            value = data_type(input(prompt))
+            if condition(value):
+                return value
+            else:
+                print("Invalid input! Please enter a valid value.")
+        except ValueError:
+            print("Invalid input! Please enter a valid value.")
