@@ -140,6 +140,28 @@ def delete_record(records):
         save_records(records)
         print("Record deleted successfully!")
 
+def search_records(records):
+    """
+    Search records in the HRIS based on a search term.
+
+    Args:
+        records (list): List of records.
+    """
+    if not records:
+        print("No records available to search.")
+        return
+
+    search_term = input("Enter the search term: ")
+    found_records = []
+    for record in records:
+        # Search for records with a matching name
+        if search_term.lower() in record['name'].lower():
+            found_records.append(record)
+    if found_records:
+        view_records(found_records)
+    else:
+        print("No matching records found.")
+        
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
