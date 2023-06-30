@@ -124,8 +124,22 @@ def delete_record(records):
     if not records:
         print("No records available to delete.")
         return
+    
+    # Display the existing records
+    view_records(records)
+    record_idx = get_valid_input("\nEnter the record number to delete: ", int, lambda x: 1 <= x <= len(records)) - 1
 
-        
+    # Get the chosen record for deletion
+    record = records[record_idx]
+    print(f"\nDeleting record {record_idx + 1}: {record['name']}")
+    confirm = input("Are you sure you want to delete this record? (y/n): ")
+
+    if confirm.lower() == 'y':
+        # Delete the record from the list and save to file
+        del records[record_idx]
+        save_records(records)
+        print("Record deleted successfully!")
+
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
