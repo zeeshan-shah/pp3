@@ -92,4 +92,8 @@ def update_record(records):
     """
     if not records:
         print("No records available to update.")
-        return           
+        return 
+                  
+    # Display the existing records
+    view_records(records)
+    record_idx = get_valid_input("\nEnter the record number to update: ", int, lambda x: 1 <= x <= len(records)) - 1
