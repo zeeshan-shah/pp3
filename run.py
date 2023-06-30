@@ -42,3 +42,16 @@ def add_record(records):
     department = input("Enter the department: ")
     salary = get_valid_input("Enter the employee's salary: ", float, lambda x: x >= 0)
     hire_date = get_valid_date("Enter the employee's hire date (DD-MM-YYYY): ")        
+
+    # Create a record dictionary with the input values
+    record = {
+        'name': name,
+        'date_of_birth': date_of_birth,
+        'age': age,
+        'address': address,
+        'email': email,
+        'job_position': job_position,
+        'department': department,
+        'salary': salary,
+        'hire_date': hire_date
+    }
