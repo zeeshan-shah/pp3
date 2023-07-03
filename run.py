@@ -5,6 +5,11 @@ import openpyxl # Import openpyxl library for working with Excel files
 from openpyxl.styles import Font # Import Font class from openpyxl.styles module for styling Excel cells
 import gspread # Import gspread library for accessing Google Sheets
 from google.oauth2.service_account import Credentials  # Import Credentials class from google.oauth2.service_account module for authentication
+from simple_term_menu import TerminalMenu # Import TerminalMenu class from simple_term_menu module for creating interactive menus in the terminal
+import colorama # Import colorama library for terminal output coloring
+from colorama import Fore, Style # Import Fore and Style classes from colorama module for text coloring
+import os # Import os module for interacting with the operating system
+import datetime # Import datetime module for working with dates and times
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
