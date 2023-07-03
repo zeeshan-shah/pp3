@@ -14,6 +14,7 @@ from colorama import Fore, Style
 import os
 # Import datetime module for working with dates and times
 import datetime
+#  Import time module
 import time
 
 SCOPE = [
@@ -75,11 +76,14 @@ def save_records(records):
         row_values = [record[key] for key in record.keys()]
         hris.append_row(row_values)
 
-    for i in range(1, 101):
-        print(f"Saving {i}%", end="\r")
-        time.sleep(0.025)
+    print("\n")  # Add whitespace above the progress update
 
-    print(Fore.LIGHTYELLOW_EX +"Records saved to Google Sheets successfully!\n")
+    for i in range(1, 101):
+        print(f"{Fore.LIGHTRED_EX}Saving progress: {i}%", end="\r")
+        time.sleep(0.025)
+    print("\n")  # Add whitespace below the progress update
+
+    print(Fore.LIGHTYELLOW_EX +"\nRecords saved to Google Sheets successfully!\n")
 
 
 def add_record(records):
