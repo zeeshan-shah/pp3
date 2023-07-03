@@ -14,6 +14,7 @@ from colorama import Fore, Style
 import os
 # Import datetime module for working with dates and times
 import datetime
+import time
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -74,7 +75,11 @@ def save_records(records):
         row_values = [record[key] for key in record.keys()]
         hris.append_row(row_values)
 
-    print("Records saved to Google Sheets successfully!")
+    for i in range(1, 101):
+        print(f"Saving {i}%", end="\r")
+        time.sleep(0.025)
+
+    print(Fore.LIGHTYELLOW_EX +"Records saved to Google Sheets successfully!\n")
 
 
 def add_record(records):
