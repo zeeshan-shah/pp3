@@ -375,7 +375,16 @@ def get_valid_hire_date(message, min_date=None):
             return date_str
         except ValueError:
             print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
-            
+
+def is_valid_address(address):
+    # Regular expression pattern for address format validation
+    pattern = r'^[a-zA-Z0-9\s.,#-]{5,}$'
+
+    if re.match(pattern, address):
+        return True
+    else:
+        return False
+                
 def get_valid_email(prompt):
     """
     Get a valid email address input from the user.
