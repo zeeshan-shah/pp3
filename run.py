@@ -32,6 +32,8 @@ SHEET = GSPREAD_CLIENT.open('pp3')
 # Access the 'hris' worksheet within the Google Sheets document
 hris = SHEET.worksheet('hris')
 
+red_color = Fore.RED
+reset_style = Style.RESET_ALL
 
 def load_records():
     """
@@ -42,7 +44,8 @@ def load_records():
     """
     records_data = hris.get_all_values()
     if not records_data:
-        print("No records found in the worksheet.")
+        print(red_color + "No records found in the worksheet.")
+        print(reset_style)
         return []
 
     fieldnames = [fieldname.lower() for fieldname in records_data[0]]
@@ -93,8 +96,9 @@ def add_record(records):
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
-        print("Invalid address format! Please enter a valid address.")
+        print(red_color + "Invalid address format! Please enter a valid address.")
         print("The address should contain at least 5 characters.")
+        print(reset_style)
         address = input("Enter the employee address: ")
 
     email = get_valid_email("Enter the employee's email address: ")
@@ -133,7 +137,8 @@ def view_records(records):
         records (list): List of records.
     """
     if not records:
-        print("No records found!")
+        print(red_color + "No records found!")
+        print(reset_style)
     else:
         for idx, record in enumerate(records):
             print(f"\n{Fore.YELLOW}Record {idx + 1}:")
@@ -157,7 +162,8 @@ def update_record(records):
         records (list): List of records.
     """
     if not records:
-        print("No records available to update.")
+        print(red_color + "No records available to update.")
+        print(reset_style)
         return
 
     # Display the existing records
@@ -181,7 +187,8 @@ def update_record(records):
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
-        print("Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        print(red_color + "Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        print(reset_style)
         address = input("Enter the employee address: ")
     record['address'] = address
     record['email'] = get_valid_email("Enter the updated employee's email address: ")
@@ -209,7 +216,8 @@ def delete_record(records):
         records (list): List of records.
     """
     if not records:
-        print("No records available to delete.")
+        print(red_color + "No records available to delete.")
+        print(reset_style)
         return
 
     # Display the existing records
@@ -219,7 +227,8 @@ def delete_record(records):
     # Get the chosen record for deletion
     record = records[record_idx]
     print(f"\nDeleting record {record_idx + 1}: {record['name']}")
-    confirm = get_confirmation_input("Are you sure you want to delete this record? (y/n): ")
+    confirm = get_confirmation_input(Fore.YELLOW + "Are you sure you want to delete this record? (y/n): ")
+    print(reset_style)
 
     if confirm.lower() == 'y':
         # Delete the record from the list and save to file
@@ -227,7 +236,8 @@ def delete_record(records):
         save_records(records)
         print("Record deleted successfully!")
     else:
-        print("Deletion cancelled.")
+        print(red_color + "Deletion cancelled.")
+        print(reset_style)
         print("Return to HRIS!")
         hris_menu(records)
 
@@ -240,7 +250,8 @@ def search_records(records):
         records (list): List of records.
     """
     if not records:
-        print("No records available to search.")
+        print(red_color + "No records available to search.")
+        print(reset_style)
         return
 
     search_term = input("Enter the search term: ")
@@ -252,7 +263,8 @@ def search_records(records):
     if found_records:
         view_records(found_records)
     else:
-        print("No matching records found.")
+        print(red_color + "No matching records found.")
+        print(reset_style)
 
 
 def sort_records(records):
@@ -263,7 +275,8 @@ def sort_records(records):
         records (list): List of records.
     """
     if not records:
-        print("No records available to sort.")
+        print(red_color + "No records available to sort.")
+        print(reset_style)
         return
 
     sort_choice = input("Sort records by (name/age/department): ").lower()
@@ -277,11 +290,13 @@ def sort_records(records):
         # Sort records by department
         records.sort(key=lambda x: x['department'])
     else:
-        print("Invalid sorting choice!")
+        print(red_color + "Invalid sorting choice!")
+        print(reset_style)
         return
 
     print("Records sorted successfully!")
     view_records(records)
+    save_records(records)
 
 
 def main_menu(records):
@@ -291,9 +306,10 @@ def main_menu(records):
     Args:
         records (list): List of records.
     """
-    print("*********************************************\n")
-    print("Welcome to Human Resources Information System\n")
-    print("*********************************************\n")
+    print(Fore.GREEN + "*********************************************")
+    print(Fore.BLUE + "Welcome to Human Resources Information System\n")
+    print(Fore.GREEN + "*********************************************")
+    print(Style.RESET_ALL)
     print("Welcome to our secure and efficient employee data management application.")
     print("Our app is designed specifically to ensure the utmost security and organization of your company's valuable employee data.")
     print("With our powerful features and intuitive interface, you can confidently store and manage all necessary information with ease.\n")
@@ -321,7 +337,8 @@ def main_menu(records):
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
             # View all records
-            print("Brief Application Instructions:\n")
+            print(Fore.YELLOW + "Brief Application Instructions:\n")
+            print(Style.RESET_ALL)
             print("To utilize this application effectively, please follow these steps:\n")
             print("1. Navigation: Use the arrow keys to navigate through the menu options.\n")
             print("2. HRIS Menu: Within the HRIS Menu, you will find various features to manage employee data efficiently. These features include:\n")
@@ -397,7 +414,8 @@ def hris_menu(records):
             main_menu(records)
 
         else:
-            print("Invalid choice! Please try again.")
+            print(red_color + "Invalid choice! Please try again.")
+            print(reset_style)
 
 
 def get_valid_name_input(prompt, data_type, condition):
@@ -418,10 +436,11 @@ def get_valid_name_input(prompt, data_type, condition):
             try:
                 return data_type(value)
             except ValueError:
-                print("Invalid input! Please enter a valid value.")
+                print(red_color + "Invalid input! Please enter a valid value.")
+                print(reset_style)
         else:
-            print("Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
-
+            print(red_color + "Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
+            print(reset_style)
 
 def get_valid_input(prompt, data_type, condition):
     """
@@ -441,9 +460,11 @@ def get_valid_input(prompt, data_type, condition):
             if condition(value):
                 return value
             else:
-                print("Invalid input! Enter a positive amount using only numbers(5000) and the decimal point '.' (e.g: 4500.80).")
+                print(red_color + "Invalid input! Enter a positive amount using only numbers(5000) and the decimal point '.' (e.g: 4500.80).")
+                print(reset_style)
         except ValueError:
-            print("Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
+            print(red_color + "Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
+            print(reset_style)
 
 
 def get_valid_dob_date(message, min_age=None):
@@ -465,24 +486,28 @@ def get_valid_dob_date(message, min_age=None):
 
             # Check if the entered date is not in the future
             if date > datetime.datetime.now().date():
-                print("Invalid date! Please enter a date before today.")
+                print(red_color + "Invalid date! Please enter a date before today.")
+                print(reset_style)
                 continue
 
             # Check if the entered date is not older than 1970
             if date.year < 1970:
-                print("Invalid date! Please enter a date after 1970.")
+                print(red_color + "Invalid date! Please enter a date after 1970.")
+                print(reset_style)
                 continue
 
             # Check if the entered date satisfies the minimum age constraint
             if min_age is not None:
                 min_age_date = datetime.datetime.now().date() - datetime.timedelta(days=365 * min_age)
                 if date > min_age_date:
-                    print("Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                    print(red_color + "Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                    print(reset_style)
                     continue
 
             return date_str
         except ValueError:
-            print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
+            print(red_color + "Invalid date format! Please enter a valid date (DD-MM-YYYY).")
+            print(reset_style)
 
 
 def get_valid_hire_date(message, min_date=None):
@@ -504,22 +529,26 @@ def get_valid_hire_date(message, min_date=None):
 
             # Check if the entered date is not in the future
             if date > datetime.datetime.now().date():
-                print("Invalid date! Please enter a date before today.")
+                print(red_color + "Invalid date! Please enter a date before today.")
+                print(reset_style)
                 continue
 
             # Check if the entered date is not older than 1970
             if date.year < 1970:
-                print("Invalid date! Please enter a date after 1970.")
+                print(red_color + "Invalid date! Please enter a date after 1970.")
+                print(reset_style)
                 continue
 
             # Check if the entered date satisfies the minimum date constraint
             if min_date is not None and date < min_date:
-                print("Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                print(red_color + "Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                print(reset_style)
                 continue
 
             return date_str
         except ValueError:
-            print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
+            print(red_color + "Invalid date format! Please enter a valid date (DD-MM-YYYY).")
+            print(reset_style)
 
 
 def is_valid_address(address):
@@ -538,7 +567,8 @@ def get_alphabetic_input(prompt):
         if re.match(r'^[a-zA-Z]{2,}$', user_input):
             return user_input
         else:
-            print("Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
+            print(red_color + "Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
+            print(reset_style)
 
 
 def get_valid_email(prompt):
@@ -557,7 +587,8 @@ def get_valid_email(prompt):
         if re.match(email_pattern, email):
             return email
         else:
-            print("Invalid email address! Please enter a valid email address.")
+            print(red_color + "Invalid email address! Please enter a valid email address.")
+            print(reset_style)
 
 
 def get_confirmation_input(prompt):
@@ -587,9 +618,11 @@ def get_valid_record_input(prompt, data_type, condition):
             if condition(value):
                 return value
             else:
-                print("Invalid input! Please enter a valid record number.")
+                print(red_color + "Invalid input! Please enter a valid record number.")
+                print(reset_style)
         except ValueError:
-            print("Invalid input! Please enter a valid record number.")
+            print(red_color + "Invalid input! Please enter a valid record number.")
+            print(reset_style)
 
 
 # Load records from file
