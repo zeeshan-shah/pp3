@@ -392,7 +392,7 @@ def get_alphabetic_input(prompt):
             return user_input
         else:
             print("Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
-            
+
 def get_valid_email(prompt):
     """
     Get a valid email address input from the user.
@@ -411,6 +411,14 @@ def get_valid_email(prompt):
         else:
             print("Invalid email address! Please enter a valid email address.")
 
+def get_confirmation_input(prompt):
+    while True:
+        response = input(prompt)
+        if response.lower() == 'y' or response.lower() == 'n':
+            return response.lower()
+        else:
+            print("Invalid input! Please enter 'y' for Yes or 'n' for No.")
+            
 def get_valid_record_input(prompt, data_type, condition):
     """
     Get a valid record number input based on data type and condition.
