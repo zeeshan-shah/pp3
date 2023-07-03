@@ -38,14 +38,26 @@ def load_records():
 
 def save_records(records):
     """
-    Save records to a JSON file.
+    Save records to Google Sheets.
 
     Args:
         records (list): List of records.
     """
-    with open('records.json', 'w') as file:
-        json.dump(records, file, indent=4)  # Write JSON data to file with indentation
+    # Clear existing data in the worksheet
+    hris.clear()
 
+    # Write the fieldnames as column headers in uppercase
+    fieldnames = list(records[0].keys())
+    capitalized_fieldnames = [fieldname.upper() for fieldname in fieldnames]
+    hris.insert_row(capitalized_fieldnames, 1)
+
+    # Write the records to the worksheet
+    for record in records:
+        row_values = [record[fieldname] for fieldname in fieldnames]
+        hris.append_row(row_values)
+
+    print("Records saved to Google Sheets successfully!")
+    
 def add_record(records):
     """
     Add a new record to the HRIS.
