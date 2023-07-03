@@ -279,7 +279,7 @@ def get_valid_name_input(prompt, data_type, condition):
                 print("Invalid input! Please enter a valid value.")
         else:
             print("Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
-            
+
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
@@ -298,9 +298,9 @@ def get_valid_input(prompt, data_type, condition):
             if condition(value):
                 return value
             else:
-                print("Invalid input! Please enter a valid value.")
+                print("Invalid input! Enter a positive amount using only numbers(5000) and the decimal point '.' (e.g: 4500.80).")
         except ValueError:
-            print("Invalid input! Please enter a valid value.")
+            print("Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
 
 def get_valid_date(prompt):
     """
