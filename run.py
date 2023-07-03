@@ -142,7 +142,7 @@ def update_record(records):
 
     # Display the existing records
     view_records(records)
-    record_idx = get_valid_input("\nEnter the record number to update: ", int, lambda x: 1 <= x <= len(records)) - 1
+    record_idx = get_valid_record_input("\nEnter the record number to update: ", int, lambda x: 1 <= x <= len(records)) - 1
 
     # Get the chosen record for updating
     record = records[record_idx]
@@ -258,6 +258,28 @@ def sort_records(records):
     print("Records sorted successfully!")
     view_records(records)
 
+def get_valid_name_input(prompt, data_type, condition):
+    """
+    Get valid user input based on data type and condition.
+
+    Args:
+        prompt (str): The input prompt message.
+        data_type (type): The expected data type of the input.
+        condition (callable): A condition function to validate the input.
+
+    Returns:
+        The validated user input.
+    """
+    while True:
+        value = input(prompt)
+        if len(value) >= 2 and not re.search(r'\d|\W', value):
+            try:
+                return data_type(value)
+            except ValueError:
+                print("Invalid input! Please enter a valid value.")
+        else:
+            print("Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
+            
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
