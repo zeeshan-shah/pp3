@@ -138,7 +138,7 @@ def update_record(records):
     """
     if not records:
         print("No records available to update.")
-        return 
+        return
 
     # Display the existing records
     view_records(records)
@@ -149,15 +149,34 @@ def update_record(records):
     print(f"\nUpdating record {record_idx + 1}: {record['name']}")
 
     # Get updated input for each field of the record
-    record['name'] = input("Enter the updated employee's name: ")
-    record['date_of_birth'] = get_valid_date("Enter the updated employee's date of birth (DD-MM-YYYY): ")
-    record['age'] = get_valid_input("Enter the updated employee's age (18 or above): ", int, lambda x: x >= 18)
-    record['address'] = input("Enter the updated employee's address: ")
+    record['name'] = get_valid_name_input("Enter the employee full name: ", str, lambda x: True)
+    record['date_of_birth'] = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
+    date_of_birth = record['date_of_birth']
+    # Calculate age from date of birth
+    current_date = datetime.datetime.now().date()
+    dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
+    record['age'] = age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    
+    # Check if the address is valid
+    address = input("Enter the employee address: ")
+    while not is_valid_address(address):
+        print("Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        address = input("Enter the employee address: ")
+    record['address'] = address
     record['email'] = get_valid_email("Enter the updated employee's email address: ")
-    record['job_position'] = input("Enter the updated employee's job position: ")
-    record['department'] = input("Enter the updated employee's department: ")
-    record['salary'] = get_valid_input("Enter the updated employee's salary: ", float, lambda x: x >= 0)
-    record['hire_date'] = get_valid_date("Enter the updated employee's hire date (DD-MM-YYYY): ")
+    record['job_position'] = get_alphabetic_input("Enter the updated employee's job position: ")
+    record['department'] = get_alphabetic_input("Enter the updated employee's department: ")
+    record['salary'] = get_valid_input("Enter the updated employee's salary($): ", float, lambda x: x >= 0)
+
+    # Calculate the minimum hire date (18 years after the date of birth)
+    min_hire_date = datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() + datetime.timedelta(days=365 * 18)
+
+    # Get the hire date
+    hire_date = get_valid_hire_date("Enter the employee's hire date (DD-MM-YYYY): ", min_date=min_hire_date)
+
+    # Save the updated records to file
+    save_records(records)
+    print("Record updated successfully!")
 
 def delete_record(records):
     """
