@@ -559,4 +559,13 @@ def get_valid_record_input(prompt, data_type, condition):
                 print("Invalid input! Please enter a valid record number.")
         except ValueError:
             print("Invalid input! Please enter a valid record number.")
+
+# Load records from file
+records = load_records()
+
+# Clear the terminal screen
+os.system('cls' if os.name == 'nt' else 'clear')
+
+# Run the HRIS
+main_menu(records)
             
