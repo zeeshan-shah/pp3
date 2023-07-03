@@ -320,9 +320,10 @@ def main_menu(records):
     print(Fore.GREEN + "*********************************************")
     print(Style.RESET_ALL)
     print("Welcome to our secure and efficient employee data management application.")
-    print("Our app is designed specifically to ensure the utmost security and organization of your company's valuable employee data.")
-    print("With our powerful features and intuitive interface, you can confidently store and manage all necessary information with ease.\n")
-    print("----------------------------------------------------------------------------------------------------------------------------\n")
+    print("Our app is designed specifically to ensure the utmost security and organization" +
+            "of your company's valuable employee data. With our powerful features and intuitive" +
+             "interface, you can confidently store and manage all necessary information with ease.\n")
+    print("---------------------------------------------------------------------------------------\n")
     while True:
 
         # Define menu options
