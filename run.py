@@ -4,9 +4,9 @@
 import re
 # Import gspread library for accessing Google Sheets
 import gspread
-# Import Credentials class for authentication
+# Import Credentials class from google.oauth2.service_account module for authentication
 from google.oauth2.service_account import Credentials
-# Import TerminalMenu class for interactive menus in the terminal
+# Import TerminalMenu class from simple_term_menu module for creating interactive menus in the terminal
 from simple_term_menu import TerminalMenu
 # Import Fore and Style classes from colorama module for text coloring
 from colorama import Fore, Style
