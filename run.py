@@ -191,7 +191,7 @@ def delete_record(records):
 
     # Display the existing records
     view_records(records)
-    record_idx = get_valid_input("\nEnter the record number to delete: ", int, lambda x: 1 <= x <= len(records)) - 1
+    record_idx = get_valid_record_input("\nEnter the record number to delete: ", int, lambda x: 1 <= x <= len(records)) - 1
 
     # Get the chosen record for deletion
     record = records[record_idx]
@@ -315,3 +315,26 @@ def get_valid_email(prompt):
             return email
         else:
             print("Invalid email address! Please enter a valid email address.")
+
+def get_valid_record_input(prompt, data_type, condition):
+    """
+    Get a valid record number input based on data type and condition.
+
+    Args:
+        prompt (str): The input prompt message.
+        data_type (type): The expected data type of the input.
+        condition (callable): A condition function to validate the input.
+
+    Returns:
+        The validated record number input.
+    """
+    while True:
+        try:
+            value = data_type(input(prompt))
+            if condition(value):
+                return value
+            else:
+                print("Invalid input! Please enter a valid record number.")
+        except ValueError:
+            print("Invalid input! Please enter a valid record number.")
+            
