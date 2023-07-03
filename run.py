@@ -188,7 +188,7 @@ def delete_record(records):
     if not records:
         print("No records available to delete.")
         return
-    
+
     # Display the existing records
     view_records(records)
     record_idx = get_valid_input("\nEnter the record number to delete: ", int, lambda x: 1 <= x <= len(records)) - 1
@@ -196,13 +196,17 @@ def delete_record(records):
     # Get the chosen record for deletion
     record = records[record_idx]
     print(f"\nDeleting record {record_idx + 1}: {record['name']}")
-    confirm = input("Are you sure you want to delete this record? (y/n): ")
+    confirm = get_confirmation_input("Are you sure you want to delete this record? (y/n): ")
 
     if confirm.lower() == 'y':
         # Delete the record from the list and save to file
         del records[record_idx]
         save_records(records)
         print("Record deleted successfully!")
+    else: 
+        print("Deletion cancelled.")
+        print("Return to HRIS!")
+        hris_menu(records)
 
 def search_records(records):
     """
