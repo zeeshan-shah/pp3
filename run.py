@@ -12,26 +12,28 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('pp3')
+CREDS = Credentials.from_service_account_file('creds.json') # Load credentials from the service account file
+SCOPED_CREDS = CREDS.with_scopes(SCOPE) # Load credentials from the service account file
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) # Authorize the gspread client using the scoped credentials
+SHEET = GSPREAD_CLIENT.open('pp3') # Open the Google Sheets document named 'pp3'
 
-hris = SHEET.worksheet('hris')
+hris = SHEET.worksheet('hris') # Access the 'hris' worksheet within the Google Sheets document
 
 
 def load_records():
     """
-    Load records from a JSON file.
+    Load records from Google Sheets.
 
     Returns:
         list: List of records.
     """
-    try:
-        with open('records.json', 'r') as file:
-            records = json.load(file)  # Load JSON data from file
-    except FileNotFoundError:
-        records = []  # Create an empty list if file not found
+    records_data = hris.get_all_values()
+    if not records_data:
+        print("No records found in the worksheet.")
+        return []
+
+    fieldnames = [fieldname.lower() for fieldname in records_data[0]]
+    records = [dict(zip(fieldnames, row)) for row in records_data[1:]]
     return records
 
 def save_records(records):
