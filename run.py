@@ -340,6 +340,42 @@ def get_valid_dob_date(message, min_age=None):
         except ValueError:
             print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
 
+def get_valid_hire_date(message, min_date=None):
+    """
+    Prompt the user to enter a valid date in the format (DD-MM-YYYY) with an optional minimum date constraint.
+
+    Args:
+        message (str): The message to display when prompting for input.
+        min_date (datetime.date): The minimum date constraint. Defaults to None.
+
+    Returns:
+        str: The valid date string in the format (DD-MM-YYYY).
+    """
+    while True:
+        date_str = input(message)
+        try:
+            # Check if the entered date is a valid date
+            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+
+            # Check if the entered date is not in the future
+            if date > datetime.datetime.now().date():
+                print("Invalid date! Please enter a date before today.")
+                continue
+
+            # Check if the entered date is not older than 1970
+            if date.year < 1970:
+                print("Invalid date! Please enter a date after 1970.")
+                continue
+
+            # Check if the entered date satisfies the minimum date constraint
+            if min_date is not None and date < min_date:
+                print("Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                continue
+
+            return date_str
+        except ValueError:
+            print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
+            
 def get_valid_email(prompt):
     """
     Get a valid email address input from the user.
