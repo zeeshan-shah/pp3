@@ -6,6 +6,20 @@ from openpyxl.styles import Font # Import Font class from openpyxl.styles module
 import gspread # Import gspread library for accessing Google Sheets
 from google.oauth2.service_account import Credentials  # Import Credentials class from google.oauth2.service_account module for authentication
 
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('pp3')
+
+hris = SHEET.worksheet('hris')
+
+
 def load_records():
     """
     Load records from a JSON file.
