@@ -384,7 +384,15 @@ def is_valid_address(address):
         return True
     else:
         return False
-                
+
+def get_alphabetic_input(prompt):
+    while True:
+        user_input = input(prompt)
+        if re.match(r'^[a-zA-Z]{2,}$', user_input):
+            return user_input
+        else:
+            print("Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
+            
 def get_valid_email(prompt):
     """
     Get a valid email address input from the user.
