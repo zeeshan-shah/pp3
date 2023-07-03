@@ -1,6 +1,10 @@
 # Import required libraries
 import json  # Library for JSON operations
 import re    # Library for regular expressions
+import openpyxl # Import openpyxl library for working with Excel files
+from openpyxl.styles import Font # Import Font class from openpyxl.styles module for styling Excel cells
+import gspread # Import gspread library for accessing Google Sheets
+from google.oauth2.service_account import Credentials  # Import Credentials class from google.oauth2.service_account module for authentication
 
 def load_records():
     """
