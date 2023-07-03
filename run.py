@@ -57,7 +57,7 @@ def save_records(records):
         hris.append_row(row_values)
 
     print("Records saved to Google Sheets successfully!")
-    
+
 def add_record(records):
     """
     Add a new record to the HRIS.
@@ -66,15 +66,29 @@ def add_record(records):
         records (list): List of records.
     """
     # Get input for each field of the record
-    name = input("Enter the employee full name: ")
-    date_of_birth = get_valid_date("Enter the employee's date of birth (DD-MM-YYYY): ")
-    age = get_valid_input("Enter the employee's age (18 or above): ", int, lambda x: x >= 18)
-    address = input("Enter the employee's address: ")
+    name = get_valid_name_input("Enter the employee full name: ", str, lambda x: True)
+    date_of_birth = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
+    
+    # Calculate age from date of birth
+    current_date = datetime.datetime.now().date()
+    dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
+    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+
+    # Check if the address is valid
+    address = input("Enter the employee address: ")
+    while not is_valid_address(address):
+        print("Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        address = input("Enter the employee address: ")
+
     email = get_valid_email("Enter the employee's email address: ")
-    job_position = input("Enter the job position: ")
-    department = input("Enter the department: ")
-    salary = get_valid_input("Enter the employee's salary: ", float, lambda x: x >= 0)
-    hire_date = get_valid_date("Enter the employee's hire date (DD-MM-YYYY): ")        
+    job_position = get_alphabetic_input("Enter the job position: ")
+    department = get_alphabetic_input("Enter the department: ")
+    salary = get_valid_input("Enter the employee's salary($): ", float, lambda x: x >= 0)
+    # Calculate the minimum hire date (18 years after the date of birth)
+    min_hire_date = datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() + datetime.timedelta(days=365 * 18)
+
+    # Get the hire date
+    hire_date = get_valid_hire_date("Enter the employee's hire date (DD-MM-YYYY): ", min_date=min_hire_date)
 
     # Create a record dictionary with the input values
     record = {
@@ -92,7 +106,6 @@ def add_record(records):
     # Append the record to the list of records and save to file
     records.append(record)
     save_records(records)
-    print("Record added successfully!")
 
 def view_records(records):
     """
