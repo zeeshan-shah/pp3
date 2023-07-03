@@ -123,16 +123,17 @@ def view_records(records):
         print("No records found!")
     else:
         for idx, record in enumerate(records):
-            print(f"\nRecord {idx + 1}:")
-            print(f"Name: {record['name']}")
-            print(f"Date of Birth: {record['date_of_birth']}")
-            print(f"Age: {record['age']}")
-            print(f"Address: {record['address']}")
-            print(f"Email: {record['email']}")
-            print(f"Job Position: {record['job_position']}")
-            print(f"Department: {record['department']}")
-            print(f"Salary: {record['salary']}")
-            print(f"Hire Date: {record['hire_date']}")
+            print(f"\n{Fore.YELLOW}Record {idx + 1}:")
+            print(f"{Fore.BLUE}Name: {Fore.GREEN}{record['name']}")
+            print(f"{Fore.BLUE}Date of Birth: {Fore.GREEN}{record['date_of_birth']}")
+            print(f"{Fore.BLUE}Age: {Fore.GREEN}{record['age']}")
+            print(f"{Fore.BLUE}Address: {Fore.GREEN}{record['address']}")
+            print(f"{Fore.BLUE}Email: {Fore.GREEN}{record['email']}")
+            print(f"{Fore.BLUE}Job Position: {Fore.GREEN}{record['job_position']}")
+            print(f"{Fore.BLUE}Department: {Fore.GREEN}{record['department']}")
+            print(f"{Fore.BLUE}Salary: {Fore.GREEN}{record['salary']}")
+            print(f"{Fore.BLUE}Hire Date: {Fore.GREEN}{record['hire_date']}")
+            print(Style.RESET_ALL)
 
 def update_record(records):
     """
