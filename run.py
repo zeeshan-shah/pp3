@@ -314,6 +314,69 @@ def main_menu(records):
             print("By following these instructions, you can effectively navigate and utilize the features provided by the HRIS application.\n")
             print("Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
 
+def hris_menu(records):
+    """
+    Human Resources Information System (HRIS) menu.
+
+    Args:
+        records (list): List of records.
+    """   
+    while True:
+        # Define menu options
+        options = [
+            "Add Record",
+            "View Records",
+            "Update Record",
+            "Delete Record",
+            "Search Records",
+            "Sort Records",
+            "Exit"
+        ]
+
+        # Create menu object
+        menu = TerminalMenu(options)
+
+        # Display the menu and get user's choice       
+        menu_index = menu.show()
+
+        if menu_index == 0:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Add a new record
+            add_record(records)
+        elif menu_index == 1:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # View all records
+            view_records(records)
+        elif menu_index == 2:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Update a record
+            update_record(records)
+        elif menu_index == 3:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Delete a record
+            delete_record(records)
+        elif menu_index == 4:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Search for records
+            search_records(records)
+        elif menu_index == 5:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Sort records
+            sort_records(records)
+        elif menu_index == 6:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            main_menu(records)
+            
+        else:
+            print("Invalid choice! Please try again.")
+        
 def get_valid_name_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
