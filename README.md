@@ -1,5 +1,7 @@
 # Human Resources Information System (HRIS)
 
+![How responsive is my website on different devices?](assets/images/how_responsive.png)
+
 The Human Resources Information System (HRIS) is an application designed to manage and store employee records efficiently. It provides a user-friendly interface to perform various HR-related tasks, facilitating effective management of employee information.
 
 ## User Stories
@@ -103,4 +105,4 @@ The top screenshot in this ReadMe was created with:
 
 Best regards,
 
-[HRIS](!!!!)
+[HRIS](https://pp3-hris-6d1cb6f43d2a.herokuapp.com/)
