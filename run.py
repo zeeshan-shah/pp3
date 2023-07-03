@@ -258,6 +258,57 @@ def sort_records(records):
     print("Records sorted successfully!")
     view_records(records)
 
+def main_menu(records):
+    """
+    Main menu.
+
+    Args:
+        records (list): List of records.
+    """
+    print("*********************************************\n")
+    print("Welcome to Human Resources Information System\n")
+    print("*********************************************\n")
+    print("Welcome to our secure and efficient employee data management application.")
+    print("Our app is designed specifically to ensure the utmost security and organization of your company's valuable employee data.")
+    print("With our powerful features and intuitive interface, you can confidently store and manage all necessary information with ease.\n") 
+    print("----------------------------------------------------------------------------------------------------------------------------\n")
+    while True:
+        
+        # Define menu options
+        options = [
+            "HRIS Menu",
+            "Instructions"
+        ]
+
+        # Create menu object
+        menu = TerminalMenu(options)
+
+        # Display the menu and get user's choice
+        menu_index = menu.show()
+
+        if menu_index == 0:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Add a new record
+            hris_menu(records)
+        elif menu_index == 1:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # View all records
+            print("Brief Application Instructions:\n")
+            print("To utilize this application effectively, please follow these steps:\n")
+            print("1. Navigation: Use the arrow keys to navigate through the menu options.\n")
+            print("2. HRIS Menu: Within the HRIS Menu, you will find various features to manage employee data efficiently. These features include:\n")
+            print("* Adding new employee data: Enter new employee information to store it securely.")
+            print("* Viewing stored data: Access and review the existing employee data.")
+            print("* Updating existing data: Modify and update employee records as required.")
+            print("* Deleting stored data: Remove employee data that is no longer needed.")
+            print("* Searching the data: Utilize search functionality to locate specific employee information.")
+            print("* Sorting the data: Arrange employee data based on specific criteria for easier analysis.")
+            print("\n")
+            print("By following these instructions, you can effectively navigate and utilize the features provided by the HRIS application.\n")
+            print("Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
+
 def get_valid_name_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
@@ -418,7 +469,7 @@ def get_confirmation_input(prompt):
             return response.lower()
         else:
             print("Invalid input! Please enter 'y' for Yes or 'n' for No.")
-            
+
 def get_valid_record_input(prompt, data_type, condition):
     """
     Get a valid record number input based on data type and condition.
