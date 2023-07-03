@@ -1,28 +1,36 @@
 # Import required libraries
-import json  # Library for JSON operations
-import re    # Library for regular expressions
-import openpyxl # Import openpyxl library for working with Excel files
-from openpyxl.styles import Font # Import Font class from openpyxl.styles module for styling Excel cells
-import gspread # Import gspread library for accessing Google Sheets
-from google.oauth2.service_account import Credentials  # Import Credentials class from google.oauth2.service_account module for authentication
-from simple_term_menu import TerminalMenu # Import TerminalMenu class from simple_term_menu module for creating interactive menus in the terminal
-import colorama # Import colorama library for terminal output coloring
-from colorama import Fore, Style # Import Fore and Style classes from colorama module for text coloring
-import os # Import os module for interacting with the operating system
-import datetime # Import datetime module for working with dates and times
+
+# Library for regular expressions
+import re
+# Import gspread library for accessing Google Sheets
+import gspread
+# Import Credentials class for authentication
+from google.oauth2.service_account import Credentials
+# Import TerminalMenu class for interactive menus in the terminal
+from simple_term_menu import TerminalMenu
+# Import Fore and Style classes from colorama module for text coloring
+from colorama import Fore, Style
+# Import os module for interacting with the operating system
+import os
+# Import datetime module for working with dates and times
+import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
-CREDS = Credentials.from_service_account_file('creds.json') # Load credentials from the service account file
-SCOPED_CREDS = CREDS.with_scopes(SCOPE) # Load credentials from the service account file
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) # Authorize the gspread client using the scoped credentials
-SHEET = GSPREAD_CLIENT.open('pp3') # Open the Google Sheets document named 'pp3'
-
-hris = SHEET.worksheet('hris') # Access the 'hris' worksheet within the Google Sheets document
+# Load credentials from the service account file
+CREDS = Credentials.from_service_account_file('creds.json')
+# Load credentials from the service account file
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+# Authorize the gspread client using the scoped credentials
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+# Open the Google Sheets document named 'pp3'
+SHEET = GSPREAD_CLIENT.open('pp3')
+# Access the 'hris' worksheet within the Google Sheets document
+hris = SHEET.worksheet('hris')
 
 
 def load_records():
@@ -41,6 +49,7 @@ def load_records():
     records = [dict(zip(fieldnames, row)) for row in records_data[1:]]
     return records
 
+
 def save_records(records):
     """
     Save records to Google Sheets.
@@ -51,17 +60,19 @@ def save_records(records):
     # Clear existing data in the worksheet
     hris.clear()
 
-    # Write the fieldnames as column headers in uppercase
-    fieldnames = list(records[0].keys())
-    capitalized_fieldnames = [fieldname.upper() for fieldname in fieldnames]
-    hris.insert_row(capitalized_fieldnames, 1)
+    if len(records) >= 1:
+        # Write the fieldnames as column headers in uppercase
+        fieldnames = list(records[0].keys())
+        capitalized_fieldnames = [fieldname.upper() for fieldname in fieldnames]
+        hris.insert_row(capitalized_fieldnames, 1)
 
     # Write the records to the worksheet
     for record in records:
-        row_values = [record[fieldname] for fieldname in fieldnames]
+        row_values = [record[key] for key in record.keys()]
         hris.append_row(row_values)
 
     print("Records saved to Google Sheets successfully!")
+
 
 def add_record(records):
     """
@@ -73,7 +84,7 @@ def add_record(records):
     # Get input for each field of the record
     name = get_valid_name_input("Enter the employee full name: ", str, lambda x: True)
     date_of_birth = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
-    
+
     # Calculate age from date of birth
     current_date = datetime.datetime.now().date()
     dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
@@ -82,7 +93,8 @@ def add_record(records):
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
-        print("Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        print("Invalid address format! Please enter a valid address.")
+        print("The address should contain at least 5 characters.")
         address = input("Enter the employee address: ")
 
     email = get_valid_email("Enter the employee's email address: ")
@@ -112,6 +124,7 @@ def add_record(records):
     records.append(record)
     save_records(records)
 
+
 def view_records(records):
     """
     View all records in the HRIS.
@@ -134,6 +147,7 @@ def view_records(records):
             print(f"{Fore.BLUE}Salary: {Fore.GREEN}{record['salary']}")
             print(f"{Fore.BLUE}Hire Date: {Fore.GREEN}{record['hire_date']}")
             print(Style.RESET_ALL)
+
 
 def update_record(records):
     """
@@ -161,8 +175,9 @@ def update_record(records):
     # Calculate age from date of birth
     current_date = datetime.datetime.now().date()
     dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
-    record['age'] = age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
-    
+    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    record['age'] = age
+
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
@@ -179,10 +194,12 @@ def update_record(records):
 
     # Get the hire date
     hire_date = get_valid_hire_date("Enter the employee's hire date (DD-MM-YYYY): ", min_date=min_hire_date)
+    record['hire_date'] = hire_date
 
     # Save the updated records to file
     save_records(records)
     print("Record updated successfully!")
+
 
 def delete_record(records):
     """
@@ -209,10 +226,11 @@ def delete_record(records):
         del records[record_idx]
         save_records(records)
         print("Record deleted successfully!")
-    else: 
+    else:
         print("Deletion cancelled.")
         print("Return to HRIS!")
         hris_menu(records)
+
 
 def search_records(records):
     """
@@ -235,6 +253,7 @@ def search_records(records):
         view_records(found_records)
     else:
         print("No matching records found.")
+
 
 def sort_records(records):
     """
@@ -264,6 +283,7 @@ def sort_records(records):
     print("Records sorted successfully!")
     view_records(records)
 
+
 def main_menu(records):
     """
     Main menu.
@@ -276,10 +296,10 @@ def main_menu(records):
     print("*********************************************\n")
     print("Welcome to our secure and efficient employee data management application.")
     print("Our app is designed specifically to ensure the utmost security and organization of your company's valuable employee data.")
-    print("With our powerful features and intuitive interface, you can confidently store and manage all necessary information with ease.\n") 
+    print("With our powerful features and intuitive interface, you can confidently store and manage all necessary information with ease.\n")
     print("----------------------------------------------------------------------------------------------------------------------------\n")
     while True:
-        
+
         # Define menu options
         options = [
             "HRIS Menu",
@@ -315,13 +335,14 @@ def main_menu(records):
             print("By following these instructions, you can effectively navigate and utilize the features provided by the HRIS application.\n")
             print("Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
 
+
 def hris_menu(records):
     """
     Human Resources Information System (HRIS) menu.
 
     Args:
         records (list): List of records.
-    """   
+    """
     while True:
         # Define menu options
         options = [
@@ -337,7 +358,7 @@ def hris_menu(records):
         # Create menu object
         menu = TerminalMenu(options)
 
-        # Display the menu and get user's choice       
+        # Display the menu and get user's choice
         menu_index = menu.show()
 
         if menu_index == 0:
@@ -374,10 +395,11 @@ def hris_menu(records):
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
             main_menu(records)
-            
+
         else:
             print("Invalid choice! Please try again.")
-        
+
+
 def get_valid_name_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
@@ -400,6 +422,7 @@ def get_valid_name_input(prompt, data_type, condition):
         else:
             print("Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
 
+
 def get_valid_input(prompt, data_type, condition):
     """
     Get valid user input based on data type and condition.
@@ -421,6 +444,7 @@ def get_valid_input(prompt, data_type, condition):
                 print("Invalid input! Enter a positive amount using only numbers(5000) and the decimal point '.' (e.g: 4500.80).")
         except ValueError:
             print("Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
+
 
 def get_valid_dob_date(message, min_age=None):
     """
@@ -460,6 +484,7 @@ def get_valid_dob_date(message, min_age=None):
         except ValueError:
             print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
 
+
 def get_valid_hire_date(message, min_date=None):
     """
     Prompt the user to enter a valid date in the format (DD-MM-YYYY) with an optional minimum date constraint.
@@ -496,6 +521,7 @@ def get_valid_hire_date(message, min_date=None):
         except ValueError:
             print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
 
+
 def is_valid_address(address):
     # Regular expression pattern for address format validation
     pattern = r'^[a-zA-Z0-9\s.,#-]{5,}$'
@@ -505,6 +531,7 @@ def is_valid_address(address):
     else:
         return False
 
+
 def get_alphabetic_input(prompt):
     while True:
         user_input = input(prompt)
@@ -512,6 +539,7 @@ def get_alphabetic_input(prompt):
             return user_input
         else:
             print("Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
+
 
 def get_valid_email(prompt):
     """
@@ -531,6 +559,7 @@ def get_valid_email(prompt):
         else:
             print("Invalid email address! Please enter a valid email address.")
 
+
 def get_confirmation_input(prompt):
     while True:
         response = input(prompt)
@@ -538,6 +567,7 @@ def get_confirmation_input(prompt):
             return response.lower()
         else:
             print("Invalid input! Please enter 'y' for Yes or 'n' for No.")
+
 
 def get_valid_record_input(prompt, data_type, condition):
     """
@@ -561,6 +591,7 @@ def get_valid_record_input(prompt, data_type, condition):
         except ValueError:
             print("Invalid input! Please enter a valid record number.")
 
+
 # Load records from file
 records = load_records()
 
@@ -569,4 +600,3 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 # Run the HRIS
 main_menu(records)
-            
