@@ -302,23 +302,43 @@ def get_valid_input(prompt, data_type, condition):
         except ValueError:
             print("Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
 
-def get_valid_date(prompt):
+def get_valid_dob_date(message, min_age=None):
     """
-    Get a valid date input from the user in the format DD-MM-YYYY.
+    Prompt the user to enter a valid date in the format (DD-MM-YYYY) with an optional minimum age constraint.
 
     Args:
-        prompt (str): The input prompt message.
+        message (str): The message to display when prompting for input.
+        min_age (int): The minimum age in years for the date. Defaults to None.
 
     Returns:
-        str: The validated date in the format DD-MM-YYYY.
+        str: The valid date string in the format (DD-MM-YYYY).
     """
-    date_pattern = r'^\d{2}-\d{2}-\d{4}$'
     while True:
-        date = input(prompt)
-        if re.match(date_pattern, date):
-            return date
-        else:
-            print("Invalid date format! Please enter the date in DD-MM-YYYY format.")
+        date_str = input(message)
+        try:
+            # Check if the entered date is a valid date
+            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+
+            # Check if the entered date is not in the future
+            if date > datetime.datetime.now().date():
+                print("Invalid date! Please enter a date before today.")
+                continue
+
+            # Check if the entered date is not older than 1970
+            if date.year < 1970:
+                print("Invalid date! Please enter a date after 1970.")
+                continue
+
+            # Check if the entered date satisfies the minimum age constraint
+            if min_age is not None:
+                min_age_date = datetime.datetime.now().date() - datetime.timedelta(days=365 * min_age)
+                if date > min_age_date:
+                    print("Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
+                    continue
+
+            return date_str
+        except ValueError:
+            print("Invalid date format! Please enter a valid date (DD-MM-YYYY).")
 
 def get_valid_email(prompt):
     """
