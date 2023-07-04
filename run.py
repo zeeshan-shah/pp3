@@ -393,6 +393,8 @@ def main_menu(records):
     Args:
         records (list): List of records.
     """
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(Fore.GREEN + "*********************************************")
     print(Fore.BLUE + "Welcome to Human Resources Information System\n")
     print(Fore.GREEN + "*********************************************")
@@ -452,7 +454,6 @@ def main_menu(records):
                 "* Sorting the data: Arrange employee data based on " +
                 "specific criteria for easier analysis."
             )
-
             print("\n")
             print(
                 "By following these instructions, you can effectively "
@@ -464,7 +465,16 @@ def main_menu(records):
                 "Navigate to HRIS MENU: Locate and "
                 "select the 'HRIS MENU' option\n"
             )
+            # Update options list to show only "HRIS Menu"
+            options = ["Main Menu"]
+            # Create update menu object without Instructions option
+            menu = TerminalMenu(options)
 
+            # Display the updated menu 
+            menu_index = menu.show()
+
+            if menu_index == 0:
+                main_menu(records)
 
 def hris_menu(records):
     """
