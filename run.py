@@ -83,7 +83,7 @@ def save_records(records):
         time.sleep(0.025)
     print("\n")  # Add whitespace below the progress update
 
-    print(Fore.LIGHTYELLOW_EX +"\nRecords saved to Google Sheets successfully!\n")
+    print(Fore.LIGHTGREEN_EX +"\nRecords saved to Google Sheets successfully!\n")
 
 
 def add_record(records):
@@ -94,7 +94,8 @@ def add_record(records):
         records (list): List of records.
     """
     # Get input for each field of the record
-    name = get_valid_name_input("Enter the employee full name: ", str, lambda x: True)
+    first_name = get_valid_name_input("Enter the employee first name: ", str, lambda x: True)
+    last_name = get_valid_name_input("Enter the employee last name: ", str, lambda x: True)
     date_of_birth = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
 
     # Calculate age from date of birth
@@ -122,7 +123,8 @@ def add_record(records):
 
     # Create a record dictionary with the input values
     record = {
-        'name': name,
+        'first_name': first_name,
+        'last_name': last_name,
         'date_of_birth': date_of_birth,
         'age': age,
         'address': address,
@@ -151,7 +153,8 @@ def view_records(records):
     else:
         for idx, record in enumerate(records):
             print(f"\n{Fore.YELLOW}Record {idx + 1}:")
-            print(f"{Fore.BLUE}Name: {Fore.GREEN}{record['name']}")
+            print(f"{Fore.BLUE}First Name: {Fore.GREEN}{record['first_name']}")
+            print(f"{Fore.BLUE}Last Name: {Fore.GREEN}{record['last_name']}")
             print(f"{Fore.BLUE}Date of Birth: {Fore.GREEN}{record['date_of_birth']}")
             print(f"{Fore.BLUE}Age: {Fore.GREEN}{record['age']}")
             print(f"{Fore.BLUE}Address: {Fore.GREEN}{record['address']}")
@@ -184,7 +187,8 @@ def update_record(records):
     print(f"\nUpdating record {record_idx + 1}: {record['name']}")
 
     # Get updated input for each field of the record
-    record['name'] = get_valid_name_input("Enter the employee full name: ", str, lambda x: True)
+    record['first_name'] = get_valid_name_input("Enter the employee first name: ", str, lambda x: True)
+    record['last_name'] = get_valid_name_input("Enter the employee last name: ", str, lambda x: True)
     record['date_of_birth'] = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
     date_of_birth = record['date_of_birth']
     # Calculate age from date of birth
@@ -235,15 +239,15 @@ def delete_record(records):
 
     # Get the chosen record for deletion
     record = records[record_idx]
-    print(f"\nDeleting record {record_idx + 1}: {record['name']}")
+    print(f"\nDeleting record {record_idx + 1}: {record['first_name']} + {record['last_name']}")
     confirm = get_confirmation_input(Fore.YELLOW + "Are you sure you want to delete this record? (y/n): ")
     print(reset_style)
 
     if confirm.lower() == 'y':
         # Delete the record from the list and save to file
         del records[record_idx]
+        print(Fore.GREEN + "Record deleted successfully!")
         save_records(records)
-        print("Record deleted successfully!")
     else:
         print(red_color + "Deletion cancelled.")
         print(reset_style)
@@ -263,11 +267,11 @@ def search_records(records):
         print(reset_style)
         return
 
-    search_term = input("Enter the search term: ")
+    search_term = input("Enter the search term(first-/lastname): ")
     found_records = []
     for record in records:
         # Search for records with a matching name
-        if search_term.lower() in record['name'].lower():
+        if search_term.lower() in record['first_name'].lower() or search_term.lower() in record['last_name'].lower():
             found_records.append(record)
     if found_records:
         view_records(found_records)
@@ -288,10 +292,13 @@ def sort_records(records):
         print(reset_style)
         return
 
-    sort_choice = input("Sort records by (name/age/department): ").lower()
-    if sort_choice == 'name':
-        # Sort records by name
-        records.sort(key=lambda x: x['name'])
+    sort_choice = input("Sort records by (firt name/last name/age/department): ").lower()
+    if sort_choice == 'first name':
+        # Sort records by first name
+        records.sort(key=lambda x: x['first_name'])
+    elif sort_choice == 'last name':
+        # Sort records by last name
+        records.sort(key=lambda x: x['last_name'])
     elif sort_choice == 'age':
         # Sort records by age
         records.sort(key=lambda x: x['age'])
@@ -303,7 +310,7 @@ def sort_records(records):
         print(reset_style)
         return
 
-    print("Records sorted successfully!")
+    print(Fore.GREEN + "Records sorted successfully!")
     view_records(records)
     save_records(records)
 
@@ -360,7 +367,7 @@ def main_menu(records):
             print("* Sorting the data: Arrange employee data based on specific criteria for easier analysis.")
             print("\n")
             print("By following these instructions, you can effectively navigate and utilize the features provided by the HRIS application.\n")
-            print("Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
+            print(Fore.BLUE + "Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
 
 
 def hris_menu(records):
@@ -371,6 +378,11 @@ def hris_menu(records):
         records (list): List of records.
     """
     while True:
+        print(Fore.YELLOW + "=============================")
+        print("      HRIS MENU")
+        print("   Select an Option:")
+        print("=============================" + Fore.RESET)
+
         # Define menu options
         options = [
             "Add Record",
