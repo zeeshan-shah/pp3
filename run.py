@@ -1,21 +1,22 @@
 # Import required libraries
 
-# Library for regular expressions
-import re
-# Import gspread library for accessing Google Sheets
-import gspread
-# Import Credentials class from google.oauth2.service_account module for authentication
-from google.oauth2.service_account import Credentials
-# Import TerminalMenu class from simple_term_menu module for creating interactive menus in the terminal
-from simple_term_menu import TerminalMenu
-# Import Fore and Style classes from colorama module for text coloring
-from colorama import Fore, Style
-# Import os module for interacting with the operating system
-import os
-# Import datetime module for working with dates and times
-import datetime
-#  Import time module
-import time
+import gspread  # Import gspread library for accessing Google Sheets
+from google.oauth2.service_account import Credentials  # Import Credentials
+from simple_term_menu import TerminalMenu  # Import TerminalMenu class
+from colorama import Fore, Style  # Import Fore and Style - text coloring
+import os  # Import os module for interacting with the operating system
+import datetime  # Import datetime module for working with dates and times
+import time  # Import time module
+from validation_functions import get_valid_name_input
+from validation_functions import get_valid_input
+from validation_functions import get_valid_dob_date
+from validation_functions import get_valid_hire_date
+from validation_functions import is_valid_address
+from validation_functions import get_valid_email
+from validation_functions import get_confirmation_input
+from validation_functions import get_valid_record_input
+from validation_functions import get_alphabetic_input
+from print_record import print_record
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -36,6 +37,7 @@ hris = SHEET.worksheet('hris')
 
 red_color = Fore.RED
 reset_style = Style.RESET_ALL
+
 
 def load_records():
     """
@@ -68,7 +70,9 @@ def save_records(records):
     if len(records) >= 1:
         # Write the fieldnames as column headers in uppercase
         fieldnames = list(records[0].keys())
-        capitalized_fieldnames = [fieldname.upper() for fieldname in fieldnames]
+        capitalized_fieldnames = [
+            fieldname.upper() for fieldname in fieldnames
+        ]
         hris.insert_row(capitalized_fieldnames, 1)
 
     # Write the records to the worksheet
@@ -81,9 +85,13 @@ def save_records(records):
     for i in range(1, 101):
         print(f"{Fore.LIGHTRED_EX}Saving progress: {i}%", end="\r")
         time.sleep(0.025)
+
     print("\n")  # Add whitespace below the progress update
 
-    print(Fore.LIGHTGREEN_EX +"\nRecords saved to Google Sheets successfully!\n")
+    print(
+        Fore.LIGHTGREEN_EX +
+        "\nRecords saved to Google Sheets successfully!\n"
+    )
 
 
 def add_record(records):
@@ -94,19 +102,36 @@ def add_record(records):
         records (list): List of records.
     """
     # Get input for each field of the record
-    first_name = get_valid_name_input("Enter the employee first name: ", str, lambda x: True)
-    last_name = get_valid_name_input("Enter the employee last name: ", str, lambda x: True)
-    date_of_birth = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
+    first_name = get_valid_name_input(
+        "Enter the employee first name: ",
+        str,
+        lambda x: True
+    )
+    last_name = get_valid_name_input(
+        "Enter the employee last name: ",
+        str,
+        lambda x: True
+    )
+    date_of_birth = get_valid_dob_date(
+        "Enter the employee's date of birth (DD-MM-YYYY): ",
+        min_age=18
+    )
 
     # Calculate age from date of birth
     current_date = datetime.datetime.now().date()
     dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
-    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    age = (
+        current_date.year - dob.year
+        - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    )
 
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
-        print(red_color + "Invalid address format! Please enter a valid address.")
+        print(
+            red_color +
+            "Invalid address format! Please enter a valid address."
+        )
         print("The address should contain at least 5 characters.")
         print(reset_style)
         address = input("Enter the employee address: ")
@@ -114,12 +139,21 @@ def add_record(records):
     email = get_valid_email("Enter the employee's email address: ")
     job_position = get_alphabetic_input("Enter the job position: ")
     department = get_alphabetic_input("Enter the department: ")
-    salary = get_valid_input("Enter the employee's salary($): ", float, lambda x: x >= 0)
+    salary = get_valid_input(
+        "Enter the employee's salary($): ",
+        float, lambda x: x >= 0
+    )
     # Calculate the minimum hire date (18 years after the date of birth)
-    min_hire_date = datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() + datetime.timedelta(days=365 * 18)
+    min_hire_date = (
+        datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() +
+        datetime.timedelta(days=365 * 18)
+    )
 
     # Get the hire date
-    hire_date = get_valid_hire_date("Enter the employee's hire date (DD-MM-YYYY): ", min_date=min_hire_date)
+    hire_date = get_valid_hire_date(
+        "Enter the employee's hire date (DD-MM-YYYY): ",
+        min_date=min_hire_date
+    )
 
     # Create a record dictionary with the input values
     record = {
@@ -151,19 +185,7 @@ def view_records(records):
         print(red_color + "No records found!")
         print(reset_style)
     else:
-        for idx, record in enumerate(records):
-            print(f"\n{Fore.YELLOW}Record {idx + 1}:")
-            print(f"{Fore.BLUE}First Name: {Fore.GREEN}{record['first_name']}")
-            print(f"{Fore.BLUE}Last Name: {Fore.GREEN}{record['last_name']}")
-            print(f"{Fore.BLUE}Date of Birth: {Fore.GREEN}{record['date_of_birth']}")
-            print(f"{Fore.BLUE}Age: {Fore.GREEN}{record['age']}")
-            print(f"{Fore.BLUE}Address: {Fore.GREEN}{record['address']}")
-            print(f"{Fore.BLUE}Email: {Fore.GREEN}{record['email']}")
-            print(f"{Fore.BLUE}Job Position: {Fore.GREEN}{record['job_position']}")
-            print(f"{Fore.BLUE}Department: {Fore.GREEN}{record['department']}")
-            print(f"{Fore.BLUE}Salary: {Fore.GREEN}{record['salary']}")
-            print(f"{Fore.BLUE}Hire Date: {Fore.GREEN}{record['hire_date']}")
-            print(Style.RESET_ALL)
+        print_record(records)
 
 
 def update_record(records):
@@ -180,40 +202,77 @@ def update_record(records):
 
     # Display the existing records
     view_records(records)
-    record_idx = get_valid_record_input("\nEnter the record number to update: ", int, lambda x: 1 <= x <= len(records)) - 1
+    record_idx = get_valid_record_input(
+        "\nEnter the record number to update: ",
+        int,
+        lambda x: 1 <= x <= len(records)
+    ) - 1
 
     # Get the chosen record for updating
     record = records[record_idx]
     print(f"\nUpdating record {record_idx + 1}: {record['name']}")
 
     # Get updated input for each field of the record
-    record['first_name'] = get_valid_name_input("Enter the employee first name: ", str, lambda x: True)
-    record['last_name'] = get_valid_name_input("Enter the employee last name: ", str, lambda x: True)
-    record['date_of_birth'] = get_valid_dob_date("Enter the employee's date of birth (DD-MM-YYYY): ", min_age=18)
+    record['first_name'] = get_valid_name_input(
+        "Enter the employee first name: ",
+        str,
+        lambda x: True
+    )
+    record['last_name'] = get_valid_name_input(
+        "Enter the employee last name: ",
+        str,
+        lambda x: True
+    )
+    record['date_of_birth'] = get_valid_dob_date(
+        "Enter the employee's date of birth (DD-MM-YYYY): ",
+        min_age=18
+    )
     date_of_birth = record['date_of_birth']
     # Calculate age from date of birth
     current_date = datetime.datetime.now().date()
     dob = datetime.datetime.strptime(date_of_birth, '%d-%m-%Y').date()
-    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    age = (
+        current_date.year - dob.year -
+        ((current_date.month, current_date.day) < (dob.month, dob.day))
+    )
     record['age'] = age
 
     # Check if the address is valid
     address = input("Enter the employee address: ")
     while not is_valid_address(address):
-        print(red_color + "Invalid address format! Please enter a valid address. The address should contain at least 5 characters.")
+        print(
+            red_color +
+            "Invalid address format! Please enter a valid address. " +
+            "The address should contain at least 5 characters."
+        )
         print(reset_style)
         address = input("Enter the employee address: ")
     record['address'] = address
-    record['email'] = get_valid_email("Enter the updated employee's email address: ")
-    record['job_position'] = get_alphabetic_input("Enter the updated employee's job position: ")
-    record['department'] = get_alphabetic_input("Enter the updated employee's department: ")
-    record['salary'] = get_valid_input("Enter the updated employee's salary($): ", float, lambda x: x >= 0)
+    record['email'] = get_valid_email(
+        "Enter the updated employee's email address: "
+    )
+    record['job_position'] = get_alphabetic_input(
+        "Enter the updated employee's job position: "
+    )
+    record['department'] = get_alphabetic_input(
+        "Enter the updated employee's department: "
+    )
+    record['salary'] = get_valid_input(
+        "Enter the updated employee's salary($): ",
+        float,
+        lambda x: x >= 0
+    )
 
     # Calculate the minimum hire date (18 years after the date of birth)
-    min_hire_date = datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() + datetime.timedelta(days=365 * 18)
+    min_hire_date = (
+        datetime.datetime.strptime(date_of_birth, "%d-%m-%Y").date() +
+        datetime.timedelta(days=365 * 18)
+    )
 
     # Get the hire date
-    hire_date = get_valid_hire_date("Enter the employee's hire date (DD-MM-YYYY): ", min_date=min_hire_date)
+    hire_date = get_valid_hire_date(
+        "Enter the employee's hire date (DD-MM-YYYY): ",
+        min_date=min_hire_date)
     record['hire_date'] = hire_date
 
     # Save the updated records to file
@@ -235,12 +294,22 @@ def delete_record(records):
 
     # Display the existing records
     view_records(records)
-    record_idx = get_valid_record_input("\nEnter the record number to delete: ", int, lambda x: 1 <= x <= len(records)) - 1
+    record_idx = get_valid_record_input(
+        "\nEnter the record number to delete: ",
+        int,
+        lambda x: 1 <= x <= len(records)
+    ) - 1
 
     # Get the chosen record for deletion
     record = records[record_idx]
-    print(f"\nDeleting record {record_idx + 1}: {record['first_name']} + {record['last_name']}")
-    confirm = get_confirmation_input(Fore.YELLOW + "Are you sure you want to delete this record? (y/n): ")
+    print(
+        f"\nDeleting record {record_idx + 1}: "
+        f"{record['first_name']} + {record['last_name']}"
+    )
+    confirm = get_confirmation_input(
+        Fore.YELLOW +
+        "Are you sure you want to delete this record? (y/n): "
+    )
     print(reset_style)
 
     if confirm.lower() == 'y':
@@ -271,7 +340,8 @@ def search_records(records):
     found_records = []
     for record in records:
         # Search for records with a matching name
-        if search_term.lower() in record['first_name'].lower() or search_term.lower() in record['last_name'].lower():
+        if (search_term.lower() in record['first_name'].lower() or
+           search_term.lower() in record['last_name'].lower()):
             found_records.append(record)
     if found_records:
         view_records(found_records)
@@ -292,7 +362,8 @@ def sort_records(records):
         print(reset_style)
         return
 
-    sort_choice = input("Sort records by (firt name/last name/age/department): ").lower()
+    sort_choice = input("Sort records by (first name/last name/age/"
+                        "department): ").lower()
     if sort_choice == 'first name':
         # Sort records by first name
         records.sort(key=lambda x: x['first_name'])
@@ -326,11 +397,14 @@ def main_menu(records):
     print(Fore.BLUE + "Welcome to Human Resources Information System\n")
     print(Fore.GREEN + "*********************************************")
     print(Style.RESET_ALL)
-    print("Welcome to our secure and efficient employee data management application.")
-    print("Our app is designed specifically to ensure the utmost security and organization " +
-            "of your company's valuable employee data. With our powerful features and intuitive " +
-             "interface, you can confidently store and manage all necessary information with ease.\n")
-    print("----------------------------------------------------------------------------\n")
+    print("Welcome to our secure and efficient employee\ndata management "
+          "application.\n")
+    print("Our app is designed specifically to ensure the\nutmost security "
+          "and organization of your\ncompany's valuable employee data. "
+          "With our\npowerful features andintuitiveinterface, you\ncan"
+          "confidently store andmanage all\nnecessary information with ease."
+          )
+    print("--------------------------------------------------\n")
     while True:
 
         # Define menu options
@@ -356,18 +430,40 @@ def main_menu(records):
             # View all records
             print(Fore.YELLOW + "Brief Application Instructions:\n")
             print(Style.RESET_ALL)
-            print("To utilize this application effectively, please follow these steps:\n")
-            print("1. Navigation: Use the arrow keys to navigate through the menu options.\n")
-            print("2. HRIS Menu: Within the HRIS Menu, you will find various features to manage employee data efficiently. These features include:\n")
-            print("* Adding new employee data: Enter new employee information to store it securely.")
-            print("* Viewing stored data: Access and review the existing employee data.")
-            print("* Updating existing data: Modify and update employee records as required.")
-            print("* Deleting stored data: Remove employee data that is no longer needed.")
-            print("* Searching the data: Utilize search functionality to locate specific employee information.")
-            print("* Sorting the data: Arrange employee data based on specific criteria for easier analysis.")
+            print(
+                "To utilize this application effectively, "
+                "please follow these steps:\n"
+                "1. Navigation: Use the arrow keys to "
+                "navigate through the menu options.\n"
+                "2. HRIS Menu: Within the HRIS Menu, you will "
+                "find various features to manage employee data efficiently. "
+                "These features include:\n"
+                "\n"
+                "   * Adding new employee data: Enter new employee " +
+                "information to store it securely.\n"
+                "   * Viewing stored data: Access and review " +
+                "the existing employee data.\n"
+                "   * Updating existing data: Modify and update " +
+                "employee records as required.\n"
+                "   * Deleting stored data: Remove employee data " +
+                "that is no longer needed.\n"
+                "   * Searching the data: Utilize search functionality " +
+                "to locate specific employee information.\n"
+                "   * Sorting the data: Arrange employee data based on " +
+                "specific criteria for easier analysis."
+            )
+
             print("\n")
-            print("By following these instructions, you can effectively navigate and utilize the features provided by the HRIS application.\n")
-            print(Fore.BLUE + "Navigate to HRIS MENU: Locate and select the 'HRIS MENU' option\n")
+            print(
+                "By following these instructions, you can effectively "
+                "navigate and utilize the features provided by "
+                "the HRIS application.\n"
+            )
+            print(
+                Fore.BLUE +
+                "Navigate to HRIS MENU: Locate and "
+                "select the 'HRIS MENU' option\n"
+            )
 
 
 def hris_menu(records):
@@ -437,213 +533,6 @@ def hris_menu(records):
 
         else:
             print(red_color + "Invalid choice! Please try again.")
-            print(reset_style)
-
-
-def get_valid_name_input(prompt, data_type, condition):
-    """
-    Get valid user input based on data type and condition.
-
-    Args:
-        prompt (str): The input prompt message.
-        data_type (type): The expected data type of the input.
-        condition (callable): A condition function to validate the input.
-
-    Returns:
-        The validated user input.
-    """
-    while True:
-        value = input(prompt)
-        if len(value) >= 2 and not re.search(r'\d|\W', value):
-            try:
-                return data_type(value)
-            except ValueError:
-                print(red_color + "Invalid input! Please enter a valid value.")
-                print(reset_style)
-        else:
-            print(red_color + "Invalid input! Please enter at least 2 characters that are not numbers or special characters.")
-            print(reset_style)
-
-def get_valid_input(prompt, data_type, condition):
-    """
-    Get valid user input based on data type and condition.
-
-    Args:
-        prompt (str): The input prompt message.
-        data_type (type): The expected data type of the input.
-        condition (callable): A condition function to validate the input.
-
-    Returns:
-        The validated user input.
-    """
-    while True:
-        try:
-            value = data_type(input(prompt))
-            if condition(value):
-                return value
-            else:
-                print(red_color + "Invalid input! Enter a positive amount using only numbers(5000) and the decimal point '.' (e.g: 4500.80).")
-                print(reset_style)
-        except ValueError:
-            print(red_color + "Invalid input! Enter a positive amount using only numbers(5000) and/or the decimal point '.' (e.g: 4500.80).")
-            print(reset_style)
-
-
-def get_valid_dob_date(message, min_age=None):
-    """
-    Prompt the user to enter a valid date in the format (DD-MM-YYYY) with an optional minimum age constraint.
-
-    Args:
-        message (str): The message to display when prompting for input.
-        min_age (int): The minimum age in years for the date. Defaults to None.
-
-    Returns:
-        str: The valid date string in the format (DD-MM-YYYY).
-    """
-    while True:
-        date_str = input(message)
-        try:
-            # Check if the entered date is a valid date
-            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
-
-            # Check if the entered date is not in the future
-            if date > datetime.datetime.now().date():
-                print(red_color + "Invalid date! Please enter a date before today.")
-                print(reset_style)
-                continue
-
-            # Check if the entered date is not older than 1970
-            if date.year < 1970:
-                print(red_color + "Invalid date! Please enter a date after 1970.")
-                print(reset_style)
-                continue
-
-            # Check if the entered date satisfies the minimum age constraint
-            if min_age is not None:
-                min_age_date = datetime.datetime.now().date() - datetime.timedelta(days=365 * min_age)
-                if date > min_age_date:
-                    print(red_color + "Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
-                    print(reset_style)
-                    continue
-
-            return date_str
-        except ValueError:
-            print(red_color + "Invalid date format! Please enter a valid date (DD-MM-YYYY).")
-            print(reset_style)
-
-
-def get_valid_hire_date(message, min_date=None):
-    """
-    Prompt the user to enter a valid date in the format (DD-MM-YYYY) with an optional minimum date constraint.
-
-    Args:
-        message (str): The message to display when prompting for input.
-        min_date (datetime.date): The minimum date constraint. Defaults to None.
-
-    Returns:
-        str: The valid date string in the format (DD-MM-YYYY).
-    """
-    while True:
-        date_str = input(message)
-        try:
-            # Check if the entered date is a valid date
-            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
-
-            # Check if the entered date is not in the future
-            if date > datetime.datetime.now().date():
-                print(red_color + "Invalid date! Please enter a date before today.")
-                print(reset_style)
-                continue
-
-            # Check if the entered date is not older than 1970
-            if date.year < 1970:
-                print(red_color + "Invalid date! Please enter a date after 1970.")
-                print(reset_style)
-                continue
-
-            # Check if the entered date satisfies the minimum date constraint
-            if min_date is not None and date < min_date:
-                print(red_color + "Invalid date! The employee does not meet the age requirement. The minimum age for employment is 18 years.")
-                print(reset_style)
-                continue
-
-            return date_str
-        except ValueError:
-            print(red_color + "Invalid date format! Please enter a valid date (DD-MM-YYYY).")
-            print(reset_style)
-
-
-def is_valid_address(address):
-    # Regular expression pattern for address format validation
-    pattern = r'^[a-zA-Z0-9\s.,#-]{5,}$'
-
-    if re.match(pattern, address):
-        return True
-    else:
-        return False
-
-
-def get_alphabetic_input(prompt):
-    while True:
-        user_input = input(prompt)
-        if re.match(r'^[a-zA-Z]{2,}$', user_input):
-            return user_input
-        else:
-            print(red_color + "Invalid input! Please enter a value consisting of at least 2 alphabetic characters only.")
-            print(reset_style)
-
-
-def get_valid_email(prompt):
-    """
-    Get a valid email address input from the user.
-
-    Args:
-        prompt (str): The input prompt message.
-
-    Returns:
-        str: The validated email address.
-    """
-    email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    while True:
-        email = input(prompt)
-        if re.match(email_pattern, email):
-            return email
-        else:
-            print(red_color + "Invalid email address! Please enter a valid email address.")
-            print(reset_style)
-
-
-def get_confirmation_input(prompt):
-    while True:
-        response = input(prompt)
-        if response.lower() == 'y' or response.lower() == 'n':
-            return response.lower()
-        else:
-            print("Invalid input! Please enter 'y' for Yes or 'n' for No.")
-
-
-def get_valid_record_input(prompt, data_type, condition):
-    """
-    Get a valid record number input based on data type and condition.
-
-    Args:
-        prompt (str): The input prompt message.
-        data_type (type): The expected data type of the input.
-        condition (callable): A condition function to validate the input.
-
-    Returns:
-        The validated record number input.
-    """
-    while True:
-        try:
-            value = data_type(input(prompt))
-            if condition(value):
-                return value
-            else:
-                print(red_color + "Invalid input! Please enter a valid record number.")
-                print(reset_style)
-        except ValueError:
-            print(red_color + "Invalid input! Please enter a valid record number.")
             print(reset_style)
 
 
