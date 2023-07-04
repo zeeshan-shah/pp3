@@ -210,7 +210,7 @@ def update_record(records):
 
     # Get the chosen record for updating
     record = records[record_idx]
-    print(f"\nUpdating record {record_idx + 1}: {record['name']}")
+    print(f"\nUpdating record {record_idx + 1}: {record['first_name']} {record['last_name']}")
 
     # Get updated input for each field of the record
     record['first_name'] = get_valid_name_input(
@@ -401,7 +401,7 @@ def main_menu(records):
           "application.\n")
     print("Our app is designed specifically to ensure the\nutmost security "
           "and organization of your\ncompany's valuable employee data. "
-          "With our\npowerful features andintuitiveinterface, you\ncan"
+          "With our\npowerful features and intuitive interface, you\ncan "
           "confidently store andmanage all\nnecessary information with ease."
           )
     print("--------------------------------------------------\n")
@@ -439,17 +439,17 @@ def main_menu(records):
                 "find various features to manage employee data efficiently. "
                 "These features include:\n"
                 "\n"
-                "   * Adding new employee data: Enter new employee " +
+                "* Adding new employee data: Enter new employee " +
                 "information to store it securely.\n"
-                "   * Viewing stored data: Access and review " +
+                "* Viewing stored data: Access and review " +
                 "the existing employee data.\n"
-                "   * Updating existing data: Modify and update " +
+                "* Updating existing data: Modify and update " +
                 "employee records as required.\n"
-                "   * Deleting stored data: Remove employee data " +
+                "* Deleting stored data: Remove employee data " +
                 "that is no longer needed.\n"
-                "   * Searching the data: Utilize search functionality " +
+                "* Searching the data: Utilize search functionality " +
                 "to locate specific employee information.\n"
-                "   * Sorting the data: Arrange employee data based on " +
+                "* Sorting the data: Arrange employee data based on " +
                 "specific criteria for easier analysis."
             )
 
