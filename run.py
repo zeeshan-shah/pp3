@@ -210,7 +210,8 @@ def update_record(records):
 
     # Get the chosen record for updating
     record = records[record_idx]
-    print(f"\nUpdating record {record_idx + 1}: {record['first_name']} {record['last_name']}")
+    print(f"\nUpdating record {record_idx + 1}: {record['first_name']} "
+          f"{record['last_name']}")
 
     # Get updated input for each field of the record
     record['first_name'] = get_valid_name_input(
@@ -470,11 +471,12 @@ def main_menu(records):
             # Create update menu object without Instructions option
             menu = TerminalMenu(options)
 
-            # Display the updated menu 
+            # Display the updated menu
             menu_index = menu.show()
 
             if menu_index == 0:
                 main_menu(records)
+
 
 def hris_menu(records):
     """
