@@ -196,19 +196,44 @@ def is_valid_address(address):
         return False
 
 
-def get_alphabetic_input(prompt):
+valid_job_positions = [
+    "manager", "developer",
+    "analyst", "designer"]  # Example list of valid job positions
+
+
+def get_job_input(message):
     while True:
-        user_input = input(prompt)
-        if re.match(r'^[a-zA-Z]{2,}$', user_input):
+        # Convert user input to lowercase for case-insensitive comparison
+        job_position = input(message).lower()
+        if job_position in valid_job_positions:
+            return job_position
+        else:
+            print(red_color +
+                  "Invalid job position. " +
+                  "Please choose from the following options:")
+            # Print the valid job positions as a comma-separated string
+            print(Fore.BLUE + ", ".join(valid_job_positions))
+            print(Style.RESET_ALL)  # Reset the style after printing
+
+
+valid_departments = [
+    "sales", "marketing",
+    "finance", "hr"]  # Example list of valid departments
+
+
+def get_department_input(message):
+    while True:
+        # Convert user input to lowercase for case-insensitive comparison
+        user_input = input(message).lower()
+        if user_input in valid_departments:
             return user_input
         else:
-            print(
-                red_color +
-                "Invalid input! "
-                "Please enter a value consisting of at least "
-                "2 alphabetic characters only."
-            )
-            print(reset_style)
+            print(red_color +
+                  "Invalid department. " +
+                  "Please choose from the following options:")
+            # Print the valid departments as a comma-separated string
+            print(Fore.BLUE + ", ".join(valid_departments))
+            print(Style.RESET_ALL)  # Reset the style after printing
 
 
 def get_valid_email(prompt):

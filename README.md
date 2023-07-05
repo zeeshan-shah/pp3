@@ -62,7 +62,13 @@ The following flowchart represents the flow of the HRIS application, illustratin
 
 The PEP8 linter is used to check the code for adherence to the PEP8 style guide for Python code. It ensures that the code follows consistent coding standards and enhances readability.
 
-   ![PEP( Linter)](./documentation/images/python_code_test_1.png)
+   ![PEP8 Linter run.py Img:1)](./documentation/images/python_code_test_1.png)
+   
+   ![PEP8 Linter run.py Img:2](./documentation/images/python_code_test_2.png)
+
+   ![PEP8 Linter validation_functions.py Img:1)](./documentation/images/python_code_test_3.png)
+   
+   ![PEP8 Linter print_record.py Img:2](./documentation/images/python_code_test_4.png)
 
    - Manual Testing
 
@@ -78,9 +84,11 @@ I conducted manual testing for the Human Resources Information System (HRIS) app
 6. No errors or issues were encountered during this test.
 
 Main Menu:
+
 ![Main Menu](./documentation/images/code_run_1.png)
 
 Instructions to the App:
+
 ![Instruction](./documentation/images/code_run_2.png)
 
 HRIS Menu:
@@ -94,6 +102,7 @@ Add Record -> Add Employee's Name:
 ![Name Input Validation](./documentation/images/code_run_5.png)
 
 Add Record -> Add Employee's Date of Birth:
+
 ![Employee DOB](./documentation/images/code_run_6.png)
 
 ![DOB Input Validation Img:1](./documentation/images/code_run_7.png)
@@ -102,44 +111,56 @@ Add Record -> Add Employee's Date of Birth:
 ![DOB Input Validation Img:4](./documentation/images/code_run_10.png)
 
 Add Record -> Add Employee's Address:
+
 ![Address Input Validation Img:1](./documentation/images/code_run_11.png)
 ![Address Input Validation Img:2](./documentation/images/code_run_12.png)
 
 Add Record -> Add Employee's Email:
+
 ![Email Input Validation Img:1](./documentation/images/code_run_13.png)
 ![Email Input Validation Img:2](./documentation/images/code_run_14.png)
 
 Add Record -> Add Employee's Job Position:
+
 ![Job Position Input Validation Img:1](./documentation/images/code_run_15.png)
 
 Add Record -> Add Employee's Department:
+
 ![Department Input Validation Img:1](./documentation/images/code_run_16.png)
 ![Department Input Validation Img:2](./documentation/images/code_run_17.png)
 
 Add Record -> Add Employee's Salary:
+
 ![Salary Input Validation Img:1](./documentation/images/code_run_18.png)
 ![Salary Input Validation Img:2](./documentation/images/code_run_19.png)
 ![Salary Input Validation Img:2](./documentation/images/code_run_20.png)
 
 Add Record -> Add Employee's Hire Date:
+
 ![Hire Date Input Validation Img:1](./documentation/images/code_run_21.png)
 
 Record Saved:
+
 ![Record Saved Img:1](./documentation/images/code_run_22.png)
 
 Add Another Record:
+
 ![Add Record:2 Img:1](./documentation/images/code_run_25.png)
 
 Saving Record 2:
+
 ![Save Record:2 Img:1](./documentation/images/code_run_26.png)
 
 Record Saved to Google Sheets:
+
 ![Record Saved to GS Img:1](./documentation/images/code_run_27.png)
 
 Record Saved in Google Sheet:
+
 ![Records in Google Sheet Img:1](./documentation/images/code_run_37.png)
 
 Exit:
+
 ![Exit Img:1](./documentation/images/code_run_38.png)
 
 #### Test 2: View Records
@@ -150,6 +171,7 @@ Exit:
 4. No errors or issues were encountered during this test.
 
 View Record:
+
 ![View Record Img:1](./documentation/images/code_run_23.png)
 
 #### Test 3: Update a Record
@@ -163,6 +185,7 @@ View Record:
 
 
 Update Record:
+
 ![Update Record Img:1](./documentation/images/code_run_24.png)
 
 #### Test 4: Delete a Record
@@ -175,18 +198,23 @@ Update Record:
 6. No errors or issues were encountered during this test.
 
 Delete Record:
+
 ![Delete Record Img:1](./documentation/images/code_run_32.png)
 
 Delete Record Confirmation:
+
 ![Delete Record Confirmation Img:1](./documentation/images/code_run_33.png)
 
 Delete Record Cancellation:
+
 ![Delete Record Cancellation Img:1](./documentation/images/code_run_34.png)
 
 Deleted Record Updated to Google Sheet:
+
 ![Deleted Record Upated Img:1](./documentation/images/code_run_35.png)
 
 View Record after Deletion:
+
 ![View Record after Deletion Img:1](./documentation/images/code_run_36.png)
 
 #### Test 5: Search Records
@@ -198,9 +226,11 @@ View Record after Deletion:
 5. No errors or issues were encountered during this test.
 
 Search Record:
+
 ![Search Record Img:1](./documentation/images/code_run_28.png)
 
 Searched Record Result:
+
 ![Search Record Result Img:1](./documentation/images/code_run_29.png)
 
 #### Test 6: Sort Records
@@ -213,9 +243,11 @@ Searched Record Result:
 
 
 Sort Record:
+
 ![Sort Record Img:1](./documentation/images/code_run_30.png)
 
 Sorted Record:
+
 ![Sorted Record Img:1](./documentation/images/code_run_31.png)
 
 #### Test 7: Invalid Input Handling
@@ -224,8 +256,6 @@ Sorted Record:
 2. Verified that the HRIS application displayed appropriate error messages or alerts to notify about the invalid input.
 3. Took screenshots of the application's interface showing the error messages or alerts for each invalid input scenario.
 4. No unexpected errors or issues were encountered during this test, and the application handled invalid input as expected.
-
-![Step 7 - Invalid Input Handling](screenshots/step7_invalid_input_handling.png)
 
 Based on the manual testing conducted, all the functionalities of the HRIS application worked as expected without any errors or issues. The application performed well, provided the intended results, and effectively handled invalid input scenarios.
 

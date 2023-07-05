@@ -15,7 +15,8 @@ from validation_functions import is_valid_address
 from validation_functions import get_valid_email
 from validation_functions import get_confirmation_input
 from validation_functions import get_valid_record_input
-from validation_functions import get_alphabetic_input
+from validation_functions import get_job_input
+from validation_functions import get_department_input
 from print_record import print_record
 
 SCOPE = [
@@ -137,8 +138,8 @@ def add_record(records):
         address = input("Enter the employee address: ")
 
     email = get_valid_email("Enter the employee's email address: ")
-    job_position = get_alphabetic_input("Enter the job position: ")
-    department = get_alphabetic_input("Enter the department: ")
+    job_position = get_job_input("Enter the job position: ")
+    department = get_department_input("Enter the department: ")
     salary = get_valid_input(
         "Enter the employee's salary($): ",
         float, lambda x: x >= 0
@@ -252,10 +253,10 @@ def update_record(records):
     record['email'] = get_valid_email(
         "Enter the updated employee's email address: "
     )
-    record['job_position'] = get_alphabetic_input(
+    record['job_position'] = get_job_input(
         "Enter the updated employee's job position: "
     )
-    record['department'] = get_alphabetic_input(
+    record['department'] = get_department_input(
         "Enter the updated employee's department: "
     )
     record['salary'] = get_valid_input(
