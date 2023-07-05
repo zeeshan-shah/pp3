@@ -1,6 +1,6 @@
 # Human Resources Information System (HRIS)
 
-![How responsive is my website on different devices?](assets/images/how_responsive.png)
+![How responsive is my website on different devices?](documentation/images/how_responsive.png)
 
 The Human Resources Information System (HRIS) is an application designed to manage and store employee records efficiently. It provides a user-friendly interface to perform various HR-related tasks, facilitating effective management of employee information.
 
@@ -54,7 +54,7 @@ The development of the HRIS application went through the following stages:
 
 The following flowchart represents the flow of the HRIS application, illustrating the different screens and user interactions:
 
-   ![HRIS Flowchart](./assets/images/hris_flowchart.jpg)
+   ![HRIS Flowchart](./documentation/images/hris_flowchart.jpg)
 
 3. **Implementation**: The application was developed using Python programming language and various libraries, such as gspread for interacting with Google Sheets API, colorama for terminal output enhancements, and argparse for handling command-line arguments. The code was structured using object-oriented programming principles to ensure modularity and maintainability.
 
@@ -62,7 +62,182 @@ The following flowchart represents the flow of the HRIS application, illustratin
 
 The PEP8 linter is used to check the code for adherence to the PEP8 style guide for Python code. It ensures that the code follows consistent coding standards and enhances readability.
 
-   ![PEP( Linter)](./assets/images/python_code_test_1.png)
+   ![PEP( Linter)](./documentation/images/python_code_test_1.png)
+
+   - Manual Testing
+
+I conducted manual testing for the Human Resources Information System (HRIS) application. Below are the tests I performed, including deliberately entering invalid input to check the error handling:
+
+#### Test 1: Add a New Record
+
+1. Launched the HRIS application.
+2. From the main menu go to HRIS Menu, selected "Add Record."
+3. Entered the required information for the new record, such as the employee's name, position, and department.
+4. Validated that the record was successfully added by checking the displayed confirmation message and verifying the updated list of records.
+5. Took a screenshot of the application's interface after adding the record.
+6. No errors or issues were encountered during this test.
+
+Main Menu:
+![Main Menu](./documentation/images/code_run_1.png)
+
+Instructions to the App:
+![Instruction](./documentation/images/code_run_2.png)
+
+HRIS Menu:
+
+![HRIS Menu](./documentation/images/code_run_3.png)
+
+Add Record -> Add Employee's Name:
+
+![Employee Name](./documentation/images/code_run_4.png)
+
+![Name Input Validation](./documentation/images/code_run_5.png)
+
+Add Record -> Add Employee's Date of Birth:
+![Employee DOB](./documentation/images/code_run_6.png)
+
+![DOB Input Validation Img:1](./documentation/images/code_run_7.png)
+![DOB Input Validation Img:2](./documentation/images/code_run_8.png)
+![DOB Input Validation Img:3](./documentation/images/code_run_9.png)
+![DOB Input Validation Img:4](./documentation/images/code_run_10.png)
+
+Add Record -> Add Employee's Address:
+![Address Input Validation Img:1](./documentation/images/code_run_11.png)
+![Address Input Validation Img:2](./documentation/images/code_run_12.png)
+
+Add Record -> Add Employee's Email:
+![Email Input Validation Img:1](./documentation/images/code_run_13.png)
+![Email Input Validation Img:2](./documentation/images/code_run_14.png)
+
+Add Record -> Add Employee's Job Position:
+![Job Position Input Validation Img:1](./documentation/images/code_run_15.png)
+
+Add Record -> Add Employee's Department:
+![Department Input Validation Img:1](./documentation/images/code_run_16.png)
+![Department Input Validation Img:2](./documentation/images/code_run_17.png)
+
+Add Record -> Add Employee's Salary:
+![Salary Input Validation Img:1](./documentation/images/code_run_18.png)
+![Salary Input Validation Img:2](./documentation/images/code_run_19.png)
+![Salary Input Validation Img:2](./documentation/images/code_run_20.png)
+
+Add Record -> Add Employee's Hire Date:
+![Hire Date Input Validation Img:1](./documentation/images/code_run_21.png)
+
+Record Saved:
+![Record Saved Img:1](./documentation/images/code_run_22.png)
+
+Add Another Record:
+![Add Record:2 Img:1](./documentation/images/code_run_25.png)
+
+Saving Record 2:
+![Save Record:2 Img:1](./documentation/images/code_run_26.png)
+
+Record Saved to Google Sheets:
+![Record Saved to GS Img:1](./documentation/images/code_run_27.png)
+
+Record Saved in Google Sheet:
+![Records in Google Sheet Img:1](./documentation/images/code_run_37.png)
+
+Exit:
+![Exit Img:1](./documentation/images/code_run_38.png)
+
+#### Test 2: View Records
+
+1. From the main menu, selected "View Records."
+2. Verified that the list of records was displayed correctly, including all the relevant information for each record.
+3. Took a screenshot of the application's interface showing the list of records.
+4. No errors or issues were encountered during this test.
+
+View Record:
+![View Record Img:1](./documentation/images/code_run_23.png)
+
+#### Test 3: Update a Record
+
+1. From the main menu, selected "Update Record."
+2. Entered the employee ID or selected the record to update.
+3. Updated the necessary fields, such as the employee's position or department.
+4. Confirmed that the record was successfully updated by checking the displayed confirmation message and verifying the updated information.
+5. Took a screenshot of the application's interface after updating the record.
+6. No errors or issues were encountered during this test.
+
+
+Update Record:
+![Update Record Img:1](./documentation/images/code_run_24.png)
+
+#### Test 4: Delete a Record
+
+1. From the main menu, selected "Delete Record."
+2. Entered the employee ID or selected the record to delete.
+3. Confirmed the deletion by following the on-screen instructions.
+4. Validated that the record was successfully deleted by checking the displayed confirmation message and verifying the updated list of records.
+5. Took a screenshot of the application's interface after deleting the record.
+6. No errors or issues were encountered during this test.
+
+Delete Record:
+![Delete Record Img:1](./documentation/images/code_run_32.png)
+
+Delete Record Confirmation:
+![Delete Record Confirmation Img:1](./documentation/images/code_run_33.png)
+
+Delete Record Cancellation:
+![Delete Record Cancellation Img:1](./documentation/images/code_run_34.png)
+
+Deleted Record Updated to Google Sheet:
+![Deleted Record Upated Img:1](./documentation/images/code_run_35.png)
+
+View Record after Deletion:
+![View Record after Deletion Img:1](./documentation/images/code_run_36.png)
+
+#### Test 5: Search Records
+
+1. From the main menu, selected "Search Records."
+2. Entered the search criteria, such as the employee's name or department.
+3. Verified that the search results displayed the relevant records matching the search criteria.
+4. Took a screenshot of the application's interface showing the search results.
+5. No errors or issues were encountered during this test.
+
+Search Record:
+![Search Record Img:1](./documentation/images/code_run_28.png)
+
+Searched Record Result:
+![Search Record Result Img:1](./documentation/images/code_run_29.png)
+
+#### Test 6: Sort Records
+
+1. From the main menu, selected "Sort Records."
+2. Chose the sorting option, such as sorting by employee name or department.
+3. Verified that the records were sorted in the selected order.
+4. Took a screenshot of the application's interface showing the sorted records.
+5. No errors or issues were encountered during this test.
+
+
+Sort Record:
+![Sort Record Img:1](./documentation/images/code_run_30.png)
+
+Sorted Record:
+![Sorted Record Img:1](./documentation/images/code_run_31.png)
+
+#### Test 7: Invalid Input Handling
+
+1. Throughout the testing process, intentionally entered invalid input in various scenarios, such as entering incorrect data types or exceeding input length limits.
+2. Verified that the HRIS application displayed appropriate error messages or alerts to notify about the invalid input.
+3. Took screenshots of the application's interface showing the error messages or alerts for each invalid input scenario.
+4. No unexpected errors or issues were encountered during this test, and the application handled invalid input as expected.
+
+![Step 7 - Invalid Input Handling](screenshots/step7_invalid_input_handling.png)
+
+Based on the manual testing conducted, all the functionalities of the HRIS application worked as expected without any errors or issues. The application performed well, provided the intended results, and effectively handled invalid input scenarios.
+
+### Bugs
+
+During the development of this project, I encountered a bug related to the usage of the `git add .` command. Throughout the development process, I relied on the `git add .` command to stage my changes. However, this command adds all changes in the current directory and its subdirectories to the staging area, which caused some unintended files to be included in my commits.
+
+As a result, there were instances where I made commits that included changes to files that were not intended to be part of that particular commit. This led to incorrect commits and caused confusion during the project's history.
+
+I would like to express my gratitude to my mentor who pointed out this bug and helped me understand the issue. Although I cannot make corrections to the previous commits, I have learned from this experience and will be more cautious in future projects. I will make sure to selectively add only the specific files I intend to include in each commit to avoid similar issues.
+
+I apologize for any inconvenience or confusion caused by this bug and appreciate your understanding.
 
 5. **Deployment to Heroku**: 
 

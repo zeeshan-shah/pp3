@@ -305,7 +305,7 @@ def delete_record(records):
     record = records[record_idx]
     print(
         f"\nDeleting record {record_idx + 1}: "
-        f"{record['first_name']} + {record['last_name']}"
+        f"{record['first_name']} {record['last_name']}"
     )
     confirm = get_confirmation_input(
         Fore.YELLOW +
