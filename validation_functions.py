@@ -197,14 +197,14 @@ def is_valid_address(address):
 
 
 valid_job_positions = [
-    "manager", "developer",
-    "analyst", "designer"]  # Example list of valid job positions
+    "Manager", "Developer",
+    "Analyst", "Designer"]  # Example list of valid job positions
 
 
 def get_job_input(message):
     while True:
         # Convert user input to lowercase for case-insensitive comparison
-        job_position = input(message).lower()
+        job_position = input(message).capitalize()
         if job_position in valid_job_positions:
             return job_position
         else:
@@ -217,15 +217,16 @@ def get_job_input(message):
 
 
 valid_departments = [
-    "sales", "marketing",
-    "finance", "hr"]  # Example list of valid departments
+    "Sales", "Marketing",
+    "Finance", "HR", "IT"]  # Example list of valid departments
 
 
 def get_department_input(message):
     while True:
         # Convert user input to lowercase for case-insensitive comparison
-        user_input = input(message).lower()
-        if user_input in valid_departments:
+        user_input = input(message).capitalize()
+        if user_input in valid_departments or \
+                user_input.upper() in valid_departments:
             return user_input
         else:
             print(red_color +
