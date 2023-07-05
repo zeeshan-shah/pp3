@@ -179,9 +179,13 @@ Next, I entered a valid email address, "random@random.com," which the applicatio
 
 Add Record -> Add Employee's Job Position:
 
+During testing, I evaluated the job position validation implemented in the HRIS application. I entered the word "random" as the job position, which triggered an invalid input message. Additionally, the application provided me with a predefined list of valid job positions, including "manager," "developer," "analyst," and "designer." This validation ensures that only the specified job positions are accepted, maintaining consistency and accuracy in recording employee data. By restricting the choices to a predefined list, the HRIS application enhances data integrity and standardization within the system.
+
 ![Job Position Input Validation Img:1](./documentation/images/code_run_15.png)
 
 Add Record -> Add Employee's Department:
+
+During the testing phase, I conducted a similar evaluation on the department validation feature implemented in the HRIS application. In this test, I inputted the word "random" as the department, which resulted in an invalid input error message. The application displayed a predefined list of valid departments, including "sales," "marketing," "finance," and "hr," prompting the user to select from these options. By enforcing the selection of valid departments from a predefined list, the HRIS application ensures consistency and accuracy in recording employee information. This validation mechanism promotes standardized data entry and enhances data integrity within the system, facilitating efficient department-wise data management.
 
 ![Department Input Validation Img:1](./documentation/images/code_run_16.png)
 ![Department Input Validation Img:2](./documentation/images/code_run_17.png)
@@ -347,7 +351,7 @@ I would like to express my gratitude to my mentor who pointed out this bug and h
 
 I apologize for any inconvenience or confusion caused by this bug and appreciate your understanding.
 
-## **Deployment to Heroku**: 
+## **Deployment on Heroku**: 
 
 The HRIS application can be easily deployed to the Heroku cloud platform for convenient access and usage. Follow the steps below to deploy the application using Heroku and the GitHub integration:
 
