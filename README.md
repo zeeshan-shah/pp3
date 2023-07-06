@@ -365,7 +365,7 @@ The HRIS application can be easily deployed to the Heroku cloud platform for con
 
 5. **Monitor deployment**: After initiating the deployment, I monitor the build process and check the logs for any errors or issues. The Heroku dashboard provides insights into the deployment status and logs for troubleshooting purposes.
 
-6. **Access the deployed app**: Once the deployment is successful, I accessed the HRIS application by visiting the URL [HRIS on Heroku](https://test3test-3747a49b6f27.herokuapp.com/) provided by Heroku for the app.
+6. **Access the deployed app**: Once the deployment is successful, I accessed the HRIS application by visiting the URL [HRIS on Heroku](https://pp3-hris-6d1cb6f43d2a.herokuapp.com/) provided by Heroku for the app.
 
 
 ## Acknowledgments
