@@ -354,7 +354,7 @@ def search_records(records):
         for record in records:
             # Search for records with a matching name
             if (search_term.lower() in record['first_name'].lower() or
-            search_term.lower() in record['last_name'].lower()):
+               search_term.lower() in record['last_name'].lower()):
                 found_records.append(record)
         if found_records:
             view_records(found_records)
@@ -512,7 +512,6 @@ def hris_menu(records):
     Args:
         records (list): List of records.
     """
-    
     print(Fore.YELLOW + "=============================")
     print("      HRIS MENU")
     print("   Select an Option:")
