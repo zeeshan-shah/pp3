@@ -285,7 +285,7 @@ def update_record(records):
 
     # Save the updated records to file
     save_records(records)
-    print("Record updated successfully!")
+    print("Record updated successfully!\n")
 
 
 def delete_record(records):
@@ -348,19 +348,20 @@ def search_records(records):
         print(red_color + "No records available to search.")
         print(reset_style)
         return
-
-    search_term = input("Enter the search term(first-/lastname): ")
-    found_records = []
-    for record in records:
-        # Search for records with a matching name
-        if (search_term.lower() in record['first_name'].lower() or
-           search_term.lower() in record['last_name'].lower()):
-            found_records.append(record)
-    if found_records:
-        view_records(found_records)
-    else:
-        print(red_color + "No matching records found.")
-        print(reset_style)
+    while True:
+        search_term = input("Enter the search term(first-/lastname): ")
+        found_records = []
+        for record in records:
+            # Search for records with a matching name
+            if (search_term.lower() in record['first_name'].lower() or
+            search_term.lower() in record['last_name'].lower()):
+                found_records.append(record)
+        if found_records:
+            view_records(found_records)
+            break
+        else:
+            print(red_color + "No matching records found.")
+            print(reset_style)
 
 
 def sort_records(records):
@@ -451,12 +452,12 @@ def main_menu(records):
         if menu_index == 0:
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
-            # Add a new record
+            # HRIS Menu
             hris_menu(records)
         elif menu_index == 1:
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
-            # View all records
+            # Instructions
             print(Fore.YELLOW + "Brief Application Instructions:\n")
             print(Style.RESET_ALL)
             print(
@@ -511,34 +512,36 @@ def hris_menu(records):
     Args:
         records (list): List of records.
     """
+    
+    print(Fore.YELLOW + "=============================")
+    print("      HRIS MENU")
+    print("   Select an Option:")
+    print("=============================" + Fore.RESET)
+
+    # Define menu options
+    options = [
+        "Add Record",
+        "View Records",
+        "Update Record",
+        "Delete Record",
+        "Search Records",
+        "Sort Records",
+        "Exit"
+    ]
+
+    # Create menu object
+    menu = TerminalMenu(options)
+
+    # Display the menu and get user's choice
+    menu_index = menu.show()
+
     while True:
-        print(Fore.YELLOW + "=============================")
-        print("      HRIS MENU")
-        print("   Select an Option:")
-        print("=============================" + Fore.RESET)
-
-        # Define menu options
-        options = [
-            "Add Record",
-            "View Records",
-            "Update Record",
-            "Delete Record",
-            "Search Records",
-            "Sort Records",
-            "Exit"
-        ]
-
-        # Create menu object
-        menu = TerminalMenu(options)
-
-        # Display the menu and get user's choice
-        menu_index = menu.show()
-
         if menu_index == 0:
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
             # Add a new record
             add_record(records)
+
         elif menu_index == 1:
             # Clear the terminal screen
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -572,6 +575,35 @@ def hris_menu(records):
         else:
             print(red_color + "Invalid choice! Please try again.")
             print(reset_style)
+
+        return_hris_menu(records)
+
+
+def return_hris_menu(records):
+    """
+    Return to HRIS Menu.
+
+    Args:
+        records (list): List of records.
+    """
+
+    while True:
+        # Define menu options
+        options = [
+            "Return to HRIS Menu",
+        ]
+
+        # Create menu object
+        menu = TerminalMenu(options)
+
+        # Display the menu and get user's choice
+        menu_index = menu.show()
+
+        if menu_index == 0:
+            # Clear the terminal screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # Go back to HRIS menu
+            hris_menu(records)
 
 
 # Load records from file
