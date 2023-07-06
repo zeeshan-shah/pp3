@@ -381,26 +381,32 @@ def sort_records(records):
     print("3. Age")
     print("4. Department")
 
-    sort_choice = input("Enter your choice (1-4): ")
+    while True:
+        sort_choice = input("Enter your choice (1-4): ")
 
-    if sort_choice == '1':
-        # Sort records by first name
-        records.sort(key=lambda x: x['first_name'])
-    elif sort_choice == '2':
-        # Sort records by last name
-        records.sort(key=lambda x: x['last_name'])
-    elif sort_choice == '3':
-        # Sort records by age
-        records.sort(key=lambda x: x['age'])
-    elif sort_choice == '4':
-        # Sort records by department
-        records.sort(key=lambda x: x['department'])
-    else:
-        print(red_color + "Invalid sorting choice!")
-        print(red_color + "Enter a number 1-4")
-        print(reset_style)
-        return
+        if sort_choice == '1':
+            # Sort records by first name
+            records.sort(key=lambda x: x['first_name'])
+            break
+        elif sort_choice == '2':
+            # Sort records by last name
+            records.sort(key=lambda x: x['last_name'])
+            break
+        elif sort_choice == '3':
+            # Sort records by age
+            records.sort(key=lambda x: x['age'])
+            break
+        elif sort_choice == '4':
+            # Sort records by department
+            records.sort(key=lambda x: x['department'])
+            break
+        else:
+            print(red_color + "Invalid sorting choice!")
+            print(red_color + "Enter a number 1-4")
+            print(Style.RESET_ALL)
 
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(Fore.GREEN + "Records sorted successfully!")
     view_records(records)
     print(Fore.GREEN + "Saving sorted data records")
