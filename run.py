@@ -465,7 +465,7 @@ def main_menu(records):
             print(
                 Fore.BLUE +
                 "Navigate to HRIS MENU: Locate and "
-                "select the 'HRIS MENU' option\n"
+                "select the 'Main MENU' option\n"
             )
             # Update options list to show only "HRIS Menu"
             options = ["Main Menu"]
