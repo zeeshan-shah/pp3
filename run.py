@@ -170,6 +170,9 @@ def add_record(records):
         'hire_date': hire_date
     }
 
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     # Append the record to the list of records and save to file
     records.append(record)
     save_records(records)
@@ -277,6 +280,9 @@ def update_record(records):
         min_date=min_hire_date)
     record['hire_date'] = hire_date
 
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     # Save the updated records to file
     save_records(records)
     print("Record updated successfully!")
@@ -317,9 +323,14 @@ def delete_record(records):
     if confirm.lower() == 'y':
         # Delete the record from the list and save to file
         del records[record_idx]
+        # Clear the terminal screen
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(Fore.GREEN + "Record deleted successfully!")
+        print(Fore.GREEN + "Saving updated data records")
         save_records(records)
     else:
+        # Clear the terminal screen
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(red_color + "Deletion cancelled.")
         print(reset_style)
         print("Return to HRIS!")
