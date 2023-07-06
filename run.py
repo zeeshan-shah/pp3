@@ -375,27 +375,35 @@ def sort_records(records):
         print(reset_style)
         return
 
-    sort_choice = input("Sort records by (first name/last name/age/"
-                        "department): ").lower()
-    if sort_choice == 'first name':
+    print("Select a sorting option:")
+    print("1. First Name")
+    print("2. Last Name")
+    print("3. Age")
+    print("4. Department")
+
+    sort_choice = input("Enter your choice (1-4): ")
+
+    if sort_choice == '1':
         # Sort records by first name
         records.sort(key=lambda x: x['first_name'])
-    elif sort_choice == 'last name':
+    elif sort_choice == '2':
         # Sort records by last name
         records.sort(key=lambda x: x['last_name'])
-    elif sort_choice == 'age':
+    elif sort_choice == '3':
         # Sort records by age
         records.sort(key=lambda x: x['age'])
-    elif sort_choice == 'department':
+    elif sort_choice == '4':
         # Sort records by department
         records.sort(key=lambda x: x['department'])
     else:
         print(red_color + "Invalid sorting choice!")
+        print(red_color + "Enter a number 1-4")
         print(reset_style)
         return
 
     print(Fore.GREEN + "Records sorted successfully!")
     view_records(records)
+    print(Fore.GREEN + "Saving sorted data records")
     save_records(records)
 
 
