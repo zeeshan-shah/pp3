@@ -225,9 +225,10 @@ def get_department_input(message):
     while True:
         # Convert user input to lowercase for case-insensitive comparison
         user_input = input(message).capitalize()
-        if user_input in valid_departments or \
-                user_input.upper() in valid_departments:
+        if user_input in valid_departments:                
             return user_input
+        elif user_input.upper() in valid_departments:
+            return user_input.upper()
         else:
             print(red_color +
                   "Invalid department. " +
