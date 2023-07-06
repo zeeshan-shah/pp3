@@ -22,7 +22,7 @@ def get_valid_name_input(prompt, data_type, condition):
         value = input(prompt)
         if len(value) >= 2 and not re.search(r'\d|\W', value):
             try:
-                return data_type(value)
+                return data_type(value).capitalize()
             except ValueError:
                 print(red_color + "Invalid input! Please enter a valid value.")
                 print(reset_style)
