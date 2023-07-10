@@ -4,6 +4,8 @@
 
 The Human Resources Information System (HRIS) is an application designed to manage and store employee records efficiently. It provides a user-friendly interface to perform various HR-related tasks, facilitating effective management of employee information.
 
+[HRIS APP](https://pp3-hris-6d1cb6f43d2a.herokuapp.com/)
+
 ## User Stories
 
 As a Human Resources Manager, I want to:
@@ -37,16 +39,41 @@ The HRIS application aims to provide a seamless and intuitive user experience, e
 
 The HRIS application is built using the following technologies:
 
-- Python: The core programming language used for developing the application logic.
-- gspread: A Python library for accessing and modifying Google Sheets, used for storing and retrieving employee records.
-- re: A Python library for working with regular expressions, used for input validation and search functionality.
-- colorama: A Python library for terminal output coloring, used to enhance the user interface.
-- simple_term_menu: A Python library for creating interactive menus in the terminal, used for user interaction.
-- datetime: A Python library for working with dates and times, used for handling the start date of employees.
-- time: A Python library for time-related functions, used for various time-related operations within the application.
-- os: A Python library for interacting with the operating system, used for clearing the terminal screen and other system-related tasks.
-- Credentials: This import of Credentials class from the google.oauth2.service_account module, which is used for authentication  
-  purposes when accessing Google Sheets.
+### Language:
+- [Python](https://www.python.org/downloads/): 
+The core programming language used for developing the application logic.
+
+### Frameworks/Libraries, Programmes and Tools:
+#### Python modules/packages:
+
+#### Standard library imports:
+- [re](https://docs.python.org/3/library/re.html): 
+A Python library for working with regular expressions, used for input validation and search functionality.
+- [datetime](https://docs.python.org/3/library/datetime.html): 
+A Python library for working with dates and times, used for handling the start date of employees.
+- [time](https://docs.python.org/3/library/time.html): 
+A Python library for time-related functions, used for various time-related operations within the application.
+- [os](https://docs.python.org/3/library/os.html): 
+A Python library for interacting with the operating system, used for clearing the terminal screen and other system-related tasks.
+
+#### Third-Party Libraries:
+- [gspread](https://docs.gspread.org/en/latest/): 
+A Python library for accessing and modifying Google Sheets, used for storing and retrieving employee records.
+- [colorama](https://pypi.org/project/colorama/): 
+A Python library for terminal output coloring, used to enhance the user interface.
+- [Simple Terminal Menu](https://pypi.org/project/simple-term-menu/): 
+A Python library for creating interactive menus in the terminal, used for user interaction.
+- [Credentials](https://pypi.org/project/credentials/): 
+This import of Credentials class from the google.oauth2.service_account module, which is used for authentication  
+purposes when accessing Google Sheets.
+
+#### Other tools:
+
+- [Git](https://git-scm.com/): Version control system for managing the source code.
+- [Github](https://github.com/): Web-based hosting service for Git repositories.
+- [Miro](https://miro.com/de/): An online collaborative whiteboard tool used for visualizing ideas and project planning.
+
+These technologies and tools are used to build and enhance the functionality and user experience of the HRIS application.
 
 ## Development Process
 
