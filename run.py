@@ -7,7 +7,18 @@ from colorama import Fore, Style  # Import Fore and Style - text coloring
 import os  # Import os module for interacting with the operating system
 import datetime  # Import datetime module for working with dates and times
 import time  # Import time module
-from validation_functions import *
+from validation_functions import (
+    get_valid_name_input,
+    get_valid_input,
+    get_valid_dob_date,
+    get_valid_hire_date,
+    is_valid_address,
+    get_valid_email,
+    get_confirmation_input,
+    get_valid_record_input,
+    get_job_input,
+    get_department_input,
+)
 from print_record import print_record
 
 SCOPE = [
