@@ -378,6 +378,16 @@ I would like to express my gratitude to my mentor who pointed out this bug and h
 
 I apologize for any inconvenience or confusion caused by this bug and appreciate your understanding.
 
+### Error with `from validation_functions import *` and Resolution
+
+During the development process, I encountered an error when using the statement `from validation_functions import *`. The error was specifically related to the flake8 linter, which flagged an F405 error. Upon consulting with a tutor at Code Institute, it was pointed out that using the wildcard import (`*`) is not recommended as it can lead to namespace pollution and potential conflicts.
+
+![F405 Error](./documentation/images/flake8_error_f405.png)
+
+To resolve the error and ensure proper code organization, it is advised to call each function from `validation_functions` explicitly by their names. This approach provides better clarity and avoids any potential issues arising from name clashes or ambiguity.
+
+By importing functions individually and explicitly, it maintained a clear understanding of which functions are being used and avoid any unintended consequences.
+
 ## **Deployment on local machine**: 
 
 To deploy the HRIS application and run it locally on your machine, follow the steps below:
