@@ -1,12 +1,11 @@
 # Import required libraries
-
+import os  # Import os module for interacting with the operating system
+import datetime  # Import datetime module for working with dates and times
+import time  # Import time module
 import gspread  # Import gspread library for accessing Google Sheets
 from google.oauth2.service_account import Credentials  # Import Credentials
 from simple_term_menu import TerminalMenu  # Import TerminalMenu class
 from colorama import Fore, Style  # Import Fore and Style - text coloring
-import os  # Import os module for interacting with the operating system
-import datetime  # Import datetime module for working with dates and times
-import time  # Import time module
 from validation_functions import (
     get_valid_name_input,
     get_valid_input,
