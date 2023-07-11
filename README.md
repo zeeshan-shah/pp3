@@ -378,22 +378,75 @@ I would like to express my gratitude to my mentor who pointed out this bug and h
 
 I apologize for any inconvenience or confusion caused by this bug and appreciate your understanding.
 
+## **Deployment on local machine**: 
+
+To deploy the HRIS application and run it locally on your machine, follow the steps below:
+
+### Prerequisites
+
+- Python: Make sure you have Python installed on your system. You can download the latest version of Python from the official Python website: [Python Download](https://www.python.org/downloads/)
+
+### Installation
+
+1. Clone the [repository](https://github.com/zeeshan-shah/pp3) to your local machine or download the source code as a ZIP file.
+
+2. Navigate to the project directory in the terminal or command prompt.
+
+3. Install the required dependencies using pip. Run the following command:
+
+   ```shell
+   pip3 install -r requirements.txt
+
+### Configuration
+
+1. Obtain Google Sheets API credentials:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/).
+   - Create a new project or select an existing project.
+   - Enable the Google Sheets API for the project.
+   - Create a service account and download the JSON credentials file.
+
+2. Rename the downloaded credentials file to `creds.json` and place it in the project directory.
+
+### Usage
+
+1. Open a terminal or command prompt and navigate to the project directory.
+
+2. Run the following command to start the HRIS application:
+
+   ```shell
+   python3 hris.py
+
+
 ## **Deployment on Heroku**: 
 
 The HRIS application can be easily deployed to the Heroku cloud platform for convenient access and usage. Follow the steps below to deploy the application using Heroku and the GitHub integration:
 
 1. **Create a Heroku app**: Log in to your Heroku account and create a new app. Choose a suitable app name and region for your deployment.
 
+![Create a new App](./documentation/images/heroku_create_app.png)
+
 2. **Set up necessary dependencies**: In the "Settings" tab of your Heroku app dashboard, navigate to the "Config Vars" section. Add the required environment variables, credentials, and any other variables needed for the application.
+
+![Add Config Vars](./documentation/images/heroku_config_vars.png)
+
+Add necessary build packs:
+![Add Build Packs](./documentation/images/heroku_build_packs.png)
 
 3. **Connect to GitHub**: In the "Deployment" tab of your Heroku app dashboard, connect your Heroku app to your GitHub repository. Select the repository and enable automatic deploys for the `main` branch or any other desired branch.
 
+![Connect to Github](./documentation/images/heroku_connect_github.png)
+
 4. **Deploy the app**: Once connected to the GitHub repository and configured the necessary environment variables, trigger a manual deployment or wait for automatic deployment to occur when changes is pushed to the GitHub repository.
+
+![Deploy the App](./documentation/images/heroku_app_deploy.png)
 
 5. **Monitor deployment**: After initiating the deployment, I monitor the build process and check the logs for any errors or issues. The Heroku dashboard provides insights into the deployment status and logs for troubleshooting purposes.
 
+![Monitor the Deployment](./documentation/images/heroku_monitor_deployment.png)
+
 6. **Access the deployed app**: Once the deployment is successful, I accessed the HRIS application by visiting the URL [HRIS on Heroku](https://pp3-hris-6d1cb6f43d2a.herokuapp.com/) provided by Heroku for the app.
 
+![Access the App](./documentation/images/heroku_access_app.png)
 
 ## Acknowledgments
 
@@ -403,6 +456,7 @@ Lauren-Nicole & Julia
 
 * My helpful mentors at Code Institute who were always there to offer useful tips and constructive feedback.
 
+## Credits 
 
 ### Useful Sources
 
