@@ -424,7 +424,7 @@ To deploy the HRIS application and run it locally on your machine, follow the st
 2. Run the following command to start the HRIS application:
 
    ```shell
-   python3 hris.py
+   python3 run.py
 
 
 ## **Deployment on Heroku**: 
